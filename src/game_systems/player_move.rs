@@ -19,21 +19,25 @@ pub fn player_move(
     >,
 ) {
     for (input, mut _force, mut transform, mut velocity, player) in query.iter_mut() {
-        if input.pressed(Action::Move) {
-            let axis_pair = input.clamped_axis_pair(Action::Move).unwrap();
-            // force.force.x += MOVE_SPEED * axis_pair.x() * time.delta_seconds();
-            // force.force.y += MOVE_SPEED * axis_pair.y() * time.delta_seconds();
-            // force.force = force.force.clamp_length(0.0, TERMINAL_FORCE);
-            velocity.linvel =
-                Vec2::new(axis_pair.x(), axis_pair.y()) * MOVE_SPEED * time.delta_seconds();
-
-            if player_outside(transform.translation) {
-                transform.translation = player.spawn_position;
-                velocity.linvel = Vec2::new(0.0, 0.0);
-            }
+        if input.pressed(Action::Rotate) {
+            let axis_pair = input.axis_pair(Action::Rotate).unwrap();
+            velocity.angvel -= axis_pair.x() * 25.0 * time.delta_seconds();
+            velocity.angvel = velocity.angvel.clamp(-5.0, 5.0);
+        } else {
+            velocity.angvel = velocity.angvel * 0.3;
         }
-        // else {
-        //     force.force = Vec2::ZERO;
-        // }
+        if input.pressed(Action::Move) {
+            let axis_pair = input.axis_pair(Action::Move).unwrap();
+            let movement_direction = transform.rotation * Vec3::Y;
+            let x = movement_direction * axis_pair.y() * time.delta_seconds() * MOVE_SPEED;
+            velocity.linvel += Vec2::new(x.x, x.y);
+        } else {
+            velocity.linvel = velocity.linvel * 0.9;
+        }
+
+        if player_outside(transform.translation) {
+            transform.translation = player.spawn_position;
+            velocity.linvel = Vec2::new(0.0, 0.0);
+        }
     }
 }

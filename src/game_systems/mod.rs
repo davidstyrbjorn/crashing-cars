@@ -1,24 +1,21 @@
 mod ball;
+mod despawn_entities;
 mod player_move;
+mod press_to_start_game;
 mod score_text;
 mod setup_game;
+mod setup_menu;
+mod setup_modification;
+mod setup_shared;
 mod timer;
 
-use ball::ball;
-use player_move::player_move;
-use score_text::score_text;
-use setup_game::setup_game;
-use timer::timer;
-
-use crate::prelude::*;
-
-pub fn setup_systems_for_game(app: &mut App) {
-    app.add_system_set(
-        SystemSet::on_update(GameState::InGame)
-            .with_system(player_move)
-            .with_system(timer)
-            .with_system(ball)
-            .with_system(score_text),
-    )
-    .add_system_set(SystemSet::on_enter(GameState::InGame).with_system(setup_game));
-}
+pub use ball::ball;
+pub use despawn_entities::despawn_entities;
+pub use player_move::player_move;
+pub use press_to_start_game::press_to_start_game;
+pub use score_text::score_text;
+pub use setup_game::setup_game;
+pub use setup_menu::setup_menu;
+pub use setup_modification::setup_modification;
+pub use setup_shared::setup_shared;
+pub use timer::timer;

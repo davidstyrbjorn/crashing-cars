@@ -24,13 +24,18 @@ TODO:
 [x] GAME: ball can score
 [x] GAME: player needs more control
 [x] CODE: score tracking
+[x] GAME: concave colliders on the corners of the map
+[x] GAME: tank controls for player? try it out see how it feels
+[x] GAME: menu to game transition
+[x] GAME: tweak ball rigidbody values
 
-[] GAME: tweak ball rigidbody values
+[] BUG: ball initial velocity weird
+
 [] GAME: transition to modification state
+
 [] TWEAK: sensor colliders for oob instead of manual checking
-[] GAME: concave colliders on the corners of the map
 [] CODE: modification representation
 [] MODIFICATION: ui
-[] GAME: Transition to game after modification
+[] GAME: transition to game after modification
 
 [] JUICE: camera shake on ball hit

@@ -19,3 +19,6 @@ pub struct Ball;
 
 #[derive(Component)]
 pub struct BallReset; // Flag component
+
+#[derive(Component)]
+pub struct OnMainMenu;

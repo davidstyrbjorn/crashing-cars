@@ -6,18 +6,16 @@ pub fn setup_game(
     mut meshes: ResMut<Assets<Mesh>>,
     mut materials: ResMut<Assets<ColorMaterial>>,
 ) {
-    commands.spawn_bundle(Camera2dBundle {
-        ..Default::default()
-    });
-
     spawn_player(
         &mut commands,
-        VirtualDPad::arrow_keys(),
+        (KeyCode::A, KeyCode::D),
+        (KeyCode::W, KeyCode::S),
         Vec3::new(WINDOW_WIDTH / 4.0, 0.0, 0.0),
     );
     spawn_player(
         &mut commands,
-        VirtualDPad::wasd(),
+        (KeyCode::Left, KeyCode::Right),
+        (KeyCode::Up, KeyCode::Down),
         Vec3::new(-WINDOW_WIDTH / 4.0, 0.0, 0.0),
     );
 
