@@ -48,31 +48,35 @@ pub fn setup_modification(
     };
 
     let mut card_entities = Vec::new();
+    let start_offset = -150.0;
 
     commands
-        .spawn(NodeBundle {
-            style: Style {
-                size: Size::new(Val::Percent(80.0), Val::Percent(80.0)),
-                justify_content: JustifyContent::FlexStart,
-                position_type: PositionType::Absolute,
-                flex_direction: FlexDirection::Column,
-                display: Display::Flex,
-                align_items: AlignItems::Center,
-                margin: UiRect {
-                    left: Val::Auto,
-                    right: Val::Auto,
-                    ..Default::default()
+        .spawn((
+            NodeBundle {
+                style: Style {
+                    size: Size::new(Val::Percent(80.0), Val::Percent(80.0)),
+                    justify_content: JustifyContent::FlexStart,
+                    position_type: PositionType::Absolute,
+                    flex_direction: FlexDirection::Column,
+                    display: Display::Flex,
+                    align_items: AlignItems::Center,
+                    margin: UiRect {
+                        left: Val::Auto,
+                        right: Val::Auto,
+                        ..Default::default()
+                    },
+                    position: UiRect {
+                        left: Val::Percent(10.0),
+                        top: Val::Percent(10.0 - start_offset),
+                        ..Default::default()
+                    },
+                    ..default()
                 },
-                position: UiRect {
-                    left: Val::Percent(10.0),
-                    top: Val::Percent(10.0),
-                    ..Default::default()
-                },
+                background_color: Color::rgba(0.0, 0.0, 0.0, 0.8).into(),
                 ..default()
             },
-            background_color: Color::rgba(0.0, 0.0, 0.0, 0.8).into(),
-            ..default()
-        })
+            SlidingWindow(start_offset),
+        ))
         .with_children(|parent| {
             parent.spawn(
                 TextBundle::from_section("Modification", text_style.clone()).with_style(Style {

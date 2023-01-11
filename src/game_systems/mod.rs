@@ -9,6 +9,7 @@ mod setup_game;
 mod setup_menu;
 mod setup_modification;
 mod setup_shared;
+mod sliding_window;
 mod timer;
 
 pub use ball::ball;
@@ -22,4 +23,5 @@ pub use setup_game::setup_game;
 pub use setup_menu::setup_menu;
 pub use setup_modification::setup_modification;
 pub use setup_shared::setup_shared;
+pub use sliding_window::sliding_window;
 pub use timer::timer;

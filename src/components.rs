@@ -3,6 +3,7 @@ use crate::prelude::*;
 #[derive(Component)]
 pub struct Player {
     pub spawn_position: Vec3,
+    pub score: u8,
 }
 
 #[derive(Component)]
@@ -22,6 +23,9 @@ pub struct BallReset; // Flag component
 
 #[derive(Component)]
 pub struct OnMainMenu;
+
+#[derive(Component)]
+pub struct SlidingWindow(pub f32);
 
 // In here we should store all sorts of stats we want to modify in the game
 #[derive(Component)]

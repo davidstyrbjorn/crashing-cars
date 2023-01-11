@@ -43,11 +43,11 @@ pub fn spawn_player(
     spawn_position: Vec3,
 ) {
     commands.spawn((
-        Player { spawn_position },
+        Player {
+            spawn_position,
+            score: 0,
+        },
         BaseStats::new(),
-        LinearSpeedModifier(4.0),
-        AngularSpeedModifier(1.0),
-        AngularDegradeModifier(3.0),
         SpriteBundle {
             sprite: Sprite {
                 custom_size: Some(Vec2::new(PLAYER_SIZE.x, PLAYER_SIZE.y)),

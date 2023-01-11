@@ -68,14 +68,34 @@ impl Modifications {
 
     pub fn modification_picked(modification_type: ModificationType, mut commands: Commands) {
         match modification_type {
-            GoalKeeper => {}
-            IncreaseSpeed => (),
-            DecreaseDegrade => (),
-            Turret => (),
-            Inverted => (),
-            ModifyField => (),
-            AddHazard => (),
-            ModifyCar => (),
+            ModificationType::GoalKeeper { to } => {
+                commands.entity(to).insert(GoalKeeper);
+            }
+            ModificationType::IncreaseSpeed { to } => {
+                commands.entity(to).insert(LinearSpeedModifier(1.2));
+                commands.entity(to).insert(AngularSpeedModifier(1.2));
+            }
+            ModificationType::DecreaseDegrade { to } => {
+                commands.entity(to).insert(AngularDegradeModifier(0.5));
+            }
+            ModificationType::Turret { to } => {
+                println!("GÖDIGT");
+            }
+            ModificationType::Inverted {
+                to,
+                number_of_rounds,
+            } => {
+                println!("GÖDIGT");
+            }
+            ModificationType::ModifyField { counter } => {
+                println!("GÖDIGT");
+            }
+            ModificationType::AddHazard { counter } => {
+                println!("GÖDIGT");
+            }
+            ModificationType::ModifyCar { counter } => {
+                println!("GÖDIGT");
+            }
         }
     }
 }

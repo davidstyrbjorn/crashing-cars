@@ -59,6 +59,9 @@ impl Plugin for ModificationPlugin {
     fn build(&self, app: &mut App) {
         app.add_system_set(
             SystemSet::on_enter(GameState::InModification).with_system(setup_modification),
+        )
+        .add_system_set(
+            SystemSet::on_update(GameState::InModification).with_system(sliding_window),
         );
     }
 }
