@@ -1,5 +1,12 @@
 use crate::prelude::*;
 
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, SystemLabel)]
+enum Label {
+    Pre,
+    Apply,
+    Main,
+}
+
 pub struct GamePlugin;
 pub struct MenuPlugin;
 pub struct ModificationPlugin;
@@ -9,10 +16,27 @@ impl Plugin for GamePlugin {
     fn build(&self, app: &mut App) {
         app.add_system_set(
             SystemSet::on_update(GameState::InGame)
-                .with_system(player_move)
-                .with_system(timer)
+                .label(Label::Pre)
+                .before(Label::Main)
+                .with_system(reset_base_system),
+        )
+        .add_system_set(
+            SystemSet::on_update(GameState::InGame)
+                .label(Label::Apply)
+                .before(Label::Main)
+                .after(Label::Pre)
+                .with_system(modifier_angular_speed)
+                .with_system(modifier_angular_degrade)
+                .with_system(modifier_linear_speed),
+        )
+        .add_system_set(
+            SystemSet::on_update(GameState::InGame)
+                .label(Label::Main)
+                .after(Label::Apply)
                 .with_system(ball)
-                .with_system(score_text),
+                .with_system(player_move)
+                .with_system(score_text)
+                .with_system(timer),
         )
         .add_system_set(
             SystemSet::on_enter(GameState::InGame)

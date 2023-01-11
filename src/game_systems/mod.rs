@@ -1,7 +1,9 @@
 mod ball;
 mod despawn_entities;
+mod modifiers;
 mod player_move;
 mod press_to_start_game;
+mod reset_base_system;
 mod score_text;
 mod setup_game;
 mod setup_menu;
@@ -11,8 +13,10 @@ mod timer;
 
 pub use ball::ball;
 pub use despawn_entities::despawn_entities;
+pub use modifiers::*;
 pub use player_move::player_move;
 pub use press_to_start_game::press_to_start_game;
+pub use reset_base_system::reset_base_system;
 pub use score_text::score_text;
 pub use setup_game::setup_game;
 pub use setup_menu::setup_menu;

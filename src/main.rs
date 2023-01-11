@@ -2,6 +2,7 @@ mod components;
 mod constants;
 mod game_systems;
 mod input;
+mod modifications;
 mod plugins;
 mod spawner;
 
@@ -12,6 +13,7 @@ mod prelude {
     pub use crate::constants::*;
     pub use crate::game_systems::*;
     pub use crate::input::*;
+    pub use crate::modifications::*;
     pub use crate::plugins::*;
     pub use crate::spawner::*;
     #[derive(Debug, Clone, Eq, PartialEq, Hash)]
@@ -51,6 +53,7 @@ fn main() {
         .insert_resource(RoundTimerConfig {
             timer: Timer::new(Duration::from_secs(5), TimerMode::Once),
         })
+        .insert_resource(Modifications::load())
         .insert_resource(ScoreCounter { score: (0, 0) })
         .add_plugins(DefaultPlugins.set(WindowPlugin {
             window: WindowDescriptor {

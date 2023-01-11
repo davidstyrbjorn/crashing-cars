@@ -1,0 +1,36 @@
+Modifications(
+    modifications: [
+        Modification(
+            title: "Outsourcing",
+            description: "Goal Keeper"
+        ),
+        Modification(
+            title: "Furiously Fast",
+            description: "Increase Speed"
+        ),
+        Modification(
+            title: "Snappy Hamster",
+            description: "Decrease Degrade Factor"
+        ),
+        Modification(
+            title: "Lock n' Load",
+            description: "Turret to shoot the ball"
+        ),
+        Modification(
+            title: "Mind Fuck",
+            description: "Give the other player inverted controls"
+        ),
+        Modification(
+            title: "Mutated Grounds",
+            description: "Modify field"
+        ),
+        Modification(
+            title: "Torture Chamber",
+            description: "Add hazards to the stage"
+        ),
+        Modification(
+            title: "Pimp My Ride",
+            description: "Add a thingy to your car"
+        )
+    ]
+)

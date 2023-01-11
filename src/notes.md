@@ -18,6 +18,17 @@ MODIFICATION:
 -   Scroll through selections of mods to the game
 -   Mod changes how the round is won
 
+Modifications:
+
+-   Goal Keepers (Outsourcing)
+-   Increase Speed (Furiously Fast)
+-   Decrase Degrade Factor (Snappy Hamster)
+-   Shootable Projectiles (Lock n' Load)
+-   Give the other player inverted controls (Mind Fuck)
+-   Modify Field - Stages, each stage adds new obstacles (Mutated Grounds)
+-   Add hazards to the stage (Torture Chamber)
+-   Add a thingy to your car (Pimp My Ride)
+
 TODO:
 [x] CODE: systems into seperate files
 [x] GAME: ball with physics
@@ -29,13 +40,11 @@ TODO:
 [x] GAME: menu to game transition
 [x] GAME: tweak ball rigidbody values
 
-[] BUG: ball initial velocity weird
+[] MODIFICATION: ui
 
 [] GAME: transition to modification state
-
+[] BUG: ball initial velocity weird
 [] TWEAK: sensor colliders for oob instead of manual checking
 [] CODE: modification representation
-[] MODIFICATION: ui
 [] GAME: transition to game after modification
-
 [] JUICE: camera shake on ball hit
