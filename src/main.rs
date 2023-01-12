@@ -9,6 +9,8 @@ mod spawner;
 use std::time::Duration;
 
 mod prelude {
+    use std::collections::VecDeque;
+
     pub use crate::components::*;
     pub use crate::constants::*;
     pub use crate::game_systems::*;
@@ -31,6 +33,13 @@ mod prelude {
     pub struct ScoreCounter {
         pub score: (u8, u8),
     }
+    #[derive(Resource)]
+    pub struct DraftResource {
+        pub current_idx: usize,
+        pub modifications: Vec<Modification>,
+        pub pick_order: VecDeque<Entity>,
+    }
+    pub struct ModificationResource {}
     pub use bevy::prelude::*;
     pub use bevy::time::FixedTimestep;
     pub use bevy::window::*;
@@ -41,6 +50,7 @@ mod prelude {
 use bevy::diagnostic::FrameTimeDiagnosticsPlugin;
 pub use prelude::*;
 
+// Convert modifications and shit to be a shared resource
 fn main() {
     let mut app = App::new();
 
@@ -54,6 +64,10 @@ fn main() {
             timer: Timer::new(Duration::from_secs(5), TimerMode::Once),
         })
         .insert_resource(Modifications::load())
+        .insert_resource(DraftResource {
+            current_idx: 0,
+            modifications: Vec::new(),
+        })
         .insert_resource(ScoreCounter { score: (0, 0) })
         .add_plugins(DefaultPlugins.set(WindowPlugin {
             window: WindowDescriptor {

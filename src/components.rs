@@ -1,9 +1,15 @@
 use crate::prelude::*;
 
+pub enum Team {
+    Red,  // left
+    Blue, // right
+}
+
 #[derive(Component)]
 pub struct Player {
     pub spawn_position: Vec3,
     pub score: u8,
+    pub team: Team,
 }
 
 #[derive(Component)]
@@ -56,3 +62,33 @@ pub struct AngularDegradeModifier(pub f32);
 
 #[derive(Component)]
 pub struct GoalKeeper;
+
+#[derive(Component)]
+pub struct ModificationElement {
+    pub order: usize,
+}
+
+#[derive(Component)]
+pub struct CurrentlyPicking;
+
+// Message component for when draft pick was made
+#[derive(Component)]
+pub struct DraftPick {
+    pub modification: Modification,
+    pub who: Entity,
+}
+
+#[derive(Component)]
+pub struct Turret;
+
+#[derive(Component)]
+pub struct Inverted(pub usize);
+
+#[derive(Component)]
+pub struct ModifyField(pub u32);
+
+#[derive(Component)]
+pub struct AddHazard(pub u32);
+
+#[derive(Component)]
+pub struct ModifyCar(pub u32);

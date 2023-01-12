@@ -6,4 +6,5 @@ pub enum Action {
     Rotate,
     Move,
     StartGame,
+    Select,
 }

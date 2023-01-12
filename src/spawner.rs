@@ -40,12 +40,15 @@ pub fn spawn_player(
     commands: &mut Commands,
     left_right: (KeyCode, KeyCode),
     up_down: (KeyCode, KeyCode),
+    select: KeyCode,
     spawn_position: Vec3,
+    team: Team,
 ) {
     commands.spawn((
         Player {
             spawn_position,
             score: 0,
+            team,
         },
         BaseStats::new(),
         SpriteBundle {
@@ -81,6 +84,7 @@ pub fn spawn_player(
                     },
                     Action::Move,
                 )
+                .insert(select, Action::Select)
                 .build(),
         },
         RigidBody::Dynamic,

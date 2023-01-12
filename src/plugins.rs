@@ -42,7 +42,8 @@ impl Plugin for GamePlugin {
             SystemSet::on_enter(GameState::InGame)
                 .with_system(setup_game)
                 .with_system(despawn_entities::<OnMainMenu>),
-        );
+        )
+        .add_system_set(SystemSet::on_exit(GameState::InGame).with_system(on_round_end));
     }
 }
 
@@ -61,7 +62,10 @@ impl Plugin for ModificationPlugin {
             SystemSet::on_enter(GameState::InModification).with_system(setup_modification),
         )
         .add_system_set(
-            SystemSet::on_update(GameState::InModification).with_system(sliding_window),
+            SystemSet::on_update(GameState::InModification)
+                .with_system(sliding_window)
+                .with_system(modification_input)
+                .with_system(highlight_modification_element),
         );
     }
 }

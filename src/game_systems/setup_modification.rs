@@ -1,8 +1,8 @@
 use crate::prelude::*;
 
-pub fn create_modification_box(parent: &mut ChildBuilder) -> Entity {
+pub fn create_modification_element(parent: &mut ChildBuilder) -> Entity {
     parent
-        .spawn(NodeBundle {
+        .spawn((NodeBundle {
             background_color: Color::rgb(0.95, 0.95, 0.95).into(),
             style: Style {
                 size: Size::new(Val::Px(300.0), Val::Px(300.0)),
@@ -12,16 +12,18 @@ pub fn create_modification_box(parent: &mut ChildBuilder) -> Entity {
                 ..default()
             },
             ..default()
-        })
+        },))
         .id()
 }
 
 pub fn setup_modification(
     mut commands: Commands,
     asset_server: Res<AssetServer>,
+    mut draft_resource: ResMut<DraftResource>,
     mut modifications: ResMut<Modifications>,
 ) {
-    let modification = vec![
+    // We'd want to save these modifications into a resource
+    draft_resource.modifications = vec![
         modifications.get_modification(),
         modifications.get_modification(),
         modifications.get_modification(),
@@ -106,15 +108,19 @@ pub fn setup_modification(
                     ..default()
                 })
                 .with_children(|parent| {
-                    card_entities.push(create_modification_box(parent));
-                    card_entities.push(create_modification_box(parent));
-                    card_entities.push(create_modification_box(parent));
+                    card_entities.push(create_modification_element(parent));
+                    card_entities.push(create_modification_element(parent));
+                    card_entities.push(create_modification_element(parent));
                 });
         });
 
     card_entities.iter().enumerate().for_each(|(idx, entity)| {
-        let title = modification[idx].title.clone();
-        let description = modification[idx].description.clone();
+        let title = draft_resource.modifications[idx].title.clone();
+        let description = draft_resource.modifications[idx].description.clone();
+
+        commands
+            .entity(*entity)
+            .insert(ModificationElement { order: idx });
 
         commands.entity(*entity).with_children(|parent| {
             parent.spawn(
@@ -140,7 +146,7 @@ pub fn setup_modification(
                         },
                         justify_content: JustifyContent::Center,
                         max_size: Size {
-                            width: Val::Px(300.0),
+                            width: Val::Px(250.0),
                             height: Val::Px(300.0),
                         },
                         ..default()

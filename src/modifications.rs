@@ -9,31 +9,14 @@ use std::fs::File;
 // Each modification to the game will be represented by a enum state
 #[derive(Clone, Deserialize, Debug, PartialEq)]
 pub enum ModificationType {
-    GoalKeeper {
-        to: Entity,
-    },
-    IncreaseSpeed {
-        to: Entity,
-    },
-    DecreaseDegrade {
-        to: Entity,
-    },
-    Turret {
-        to: Entity,
-    },
-    Inverted {
-        to: Entity,
-        number_of_rounds: Entity,
-    },
-    ModifyField {
-        counter: u32,
-    },
-    AddHazard {
-        counter: u32,
-    },
-    ModifyCar {
-        counter: u32,
-    },
+    GoalKeeper { to: Entity },
+    IncreaseSpeed { to: Entity },
+    DecreaseDegrade { to: Entity },
+    Turret { to: Entity },
+    Inverted { to: Entity, number_of_rounds: usize },
+    ModifyField { counter: u32 },
+    AddHazard { counter: u32 },
+    ModifyCar { to: Entity, counter: u32 },
 }
 
 // On modification pickup we can basically add a new component to the given entity
@@ -79,22 +62,22 @@ impl Modifications {
                 commands.entity(to).insert(AngularDegradeModifier(0.5));
             }
             ModificationType::Turret { to } => {
-                println!("GÖDIGT");
+                commands.entity(to).insert(Turret);
             }
             ModificationType::Inverted {
                 to,
                 number_of_rounds,
             } => {
-                println!("GÖDIGT");
+                commands.entity(to).insert(Inverted(number_of_rounds));
             }
             ModificationType::ModifyField { counter } => {
-                println!("GÖDIGT");
+                commands.spawn(ModifyField(counter));
             }
             ModificationType::AddHazard { counter } => {
-                println!("GÖDIGT");
+                commands.spawn(AddHazard(counter));
             }
-            ModificationType::ModifyCar { counter } => {
-                println!("GÖDIGT");
+            ModificationType::ModifyCar { to, counter } => {
+                commands.entity(to).insert(ModifyCar(counter));
             }
         }
     }
