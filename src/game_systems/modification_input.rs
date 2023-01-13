@@ -32,6 +32,7 @@ pub fn modification_input(
             idx: draft_resource.current_idx,
         });
 
+        // Remove from list
         let idx = draft_resource.current_idx;
         draft_resource.modifications.remove(idx);
 

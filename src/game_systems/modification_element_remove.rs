@@ -7,13 +7,11 @@ pub fn modification_element_remove(
 ) {
     for draft_pick in events.iter() {
         let idx = draft_pick.idx;
-
         // remove the entity that was picked (UI element)
-        let entity = query
+        query
             .iter()
             .filter(|(me, _)| me.order == idx)
             .for_each(|(_, entity)| {
-                println!("ME AT BALLS");
                 commands.entity(entity).despawn_recursive();
             });
 

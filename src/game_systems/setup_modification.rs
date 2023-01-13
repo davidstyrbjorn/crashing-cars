@@ -22,6 +22,7 @@ pub fn setup_modification(
     mut draft_resource: ResMut<DraftResource>,
     mut modifications: ResMut<Modifications>,
 ) {
+    println!("{}", modifications.modifications.len());
     // We'd want to save these modifications into a resource
     draft_resource.modifications = vec![
         modifications.get_modification(),

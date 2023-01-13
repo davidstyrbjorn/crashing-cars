@@ -39,12 +39,20 @@ TODO:
 [x] GAME: tank controls for player? try it out see how it feels
 [x] GAME: menu to game transition
 [x] GAME: tweak ball rigidbody values
+[x] GAME: transition to modification state
+[x] CODE: modification representation
+[x] GAME: transition to game after modification
+[x] MODIFICATION: ui
+MODIFICATIONS
+[] MOD: GoalKeeper
+[x] MOD: IncreaseSpeed
+[ish] MOD: DecreaseDegrade (needs some more polish)
+[] MOD: Turret
+[] MOD: Inverted
+[] MOD: ModifyField
+[] MOD: AddHazard
+[] MOD: ModifyCar
 
-[] MODIFICATION: ui
-
-[] GAME: transition to modification state
 [] BUG: ball initial velocity weird
 [] TWEAK: sensor colliders for oob instead of manual checking
-[] CODE: modification representation
-[] GAME: transition to game after modification
 [] JUICE: camera shake on ball hit

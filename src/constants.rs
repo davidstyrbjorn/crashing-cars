@@ -1,6 +1,6 @@
 use crate::prelude::*;
 
-pub const WINDOW_SIZE: f32 = 1600.0;
+pub const WINDOW_SIZE: f32 = 1800.0;
 pub const WINDOW_HEIGHT: f32 = WINDOW_SIZE / 2.0;
 pub const WINDOW_WIDTH: f32 = WINDOW_SIZE;
 pub const PLAYER_SIZE: Vec2 = Vec2::new(50.0, 50.0);

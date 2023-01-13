@@ -6,6 +6,7 @@ pub fn draft_pick(
     mut events: EventReader<DraftPickEvent>,
     mut modification_events: EventWriter<ModificationDone>,
     mut app_state: ResMut<State<GameState>>,
+    mut modifications: ResMut<Modifications>,
     mut commands: Commands,
 ) {
     for draft_pick in events.iter() {
@@ -44,6 +45,9 @@ pub fn draft_pick(
             app_state.set(GameState::InGame).unwrap();
             // No more, draft is done, switch back to game
             modification_events.send(ModificationDone);
+            draft_resource.modifications.iter().for_each(|mf| {
+                modifications.modifications.push(mf.clone());
+            });
         }
     }
 }

@@ -1,3 +1,5 @@
+use std::f32::consts::PI;
+
 use bevy::sprite::MaterialMesh2dBundle;
 use bevy_rapier2d::{
     na::{Point, Point2},
@@ -44,6 +46,10 @@ pub fn spawn_player(
     spawn_position: Vec3,
     team: Team,
 ) {
+    let mut rotation_z = PI / 2.0;
+    if team == Team::Red {
+        rotation_z = -PI / 2.0;
+    }
     commands.spawn((
         Player {
             spawn_position,
@@ -58,7 +64,7 @@ pub fn spawn_player(
             },
             transform: Transform {
                 translation: spawn_position,
-                rotation: Quat::default(),
+                rotation: Quat::from_rotation_z(rotation_z),
                 scale: Vec3::new(1.0, 1.0, 1.0),
             },
             ..Default::default()

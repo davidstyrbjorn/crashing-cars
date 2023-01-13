@@ -1,5 +1,6 @@
 use crate::prelude::*;
 
+#[derive(PartialEq)]
 pub enum Team {
     Red,  // left
     Blue, // right

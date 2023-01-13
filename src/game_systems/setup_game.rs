@@ -17,16 +17,16 @@ pub fn setup_game(
         (KeyCode::A, KeyCode::D),
         (KeyCode::W, KeyCode::S),
         KeyCode::Space,
-        Vec3::new(WINDOW_WIDTH / 4.0, 0.0, 0.0),
-        Team::Blue,
+        Vec3::new(-WINDOW_WIDTH / 4.0, 0.0, 0.0),
+        Team::Red,
     );
     spawn_player(
         &mut commands,
         (KeyCode::Left, KeyCode::Right),
         (KeyCode::Up, KeyCode::Down),
         KeyCode::Space,
-        Vec3::new(-WINDOW_WIDTH / 4.0, 0.0, 0.0),
-        Team::Red,
+        Vec3::new(WINDOW_WIDTH / 4.0, 0.0, 0.0),
+        Team::Blue,
     );
 
     spawn_ball(&mut commands, &mut meshes, &mut materials);
