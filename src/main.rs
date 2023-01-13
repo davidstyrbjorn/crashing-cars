@@ -6,7 +6,7 @@ mod modifications;
 mod plugins;
 mod spawner;
 
-use std::time::Duration;
+use std::{collections::VecDeque, time::Duration};
 
 mod prelude {
     use std::collections::VecDeque;
@@ -67,6 +67,7 @@ fn main() {
         .insert_resource(DraftResource {
             current_idx: 0,
             modifications: Vec::new(),
+            pick_order: VecDeque::new(),
         })
         .insert_resource(ScoreCounter { score: (0, 0) })
         .add_plugins(DefaultPlugins.set(WindowPlugin {

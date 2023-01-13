@@ -5,6 +5,10 @@ pub fn modification_input(
     mut draft_resource: ResMut<DraftResource>,
     mut query: Query<(&ActionState<Action>, Entity), With<CurrentlyPicking>>,
 ) {
+    if query.is_empty() {
+        return;
+    }
+
     let (input, entity) = query.single_mut();
     if input.just_pressed(Action::Rotate) {
         let axis_pair = input.axis_pair(Action::Rotate).unwrap();
@@ -21,9 +25,13 @@ pub fn modification_input(
 
     // Select input?
     if input.just_pressed(Action::Select) {
-        commands.entity(entity).insert(DraftPick {
+        // Command for draft pick
+        commands.spawn(DraftPick {
             modification: draft_resource.modifications[draft_resource.current_idx].clone(),
             who: entity,
         });
+
+        // And remove from current picker
+        commands.entity(entity).remove::<CurrentlyPicking>();
     }
 }

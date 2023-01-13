@@ -18,7 +18,7 @@ pub fn setup_menu(mut commands: Commands, asset_server: Res<AssetServer>) {
 
     commands.spawn((
         Text2dBundle {
-            text: Text::from_section("Crash Cars", text_style.clone())
+            text: Text::from_section("Car Crash The Game", text_style.clone())
                 .with_alignment(text_alignment),
             ..default()
         },

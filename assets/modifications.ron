@@ -29,7 +29,7 @@ Modifications(
             description: "Add hazards to the stage"
         ),
         Modification(
-            title: "Pimp My Ride",
+            title: "That MTV Show",
             description: "Add a thingy to your car"
         )
     ]

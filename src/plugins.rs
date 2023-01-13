@@ -65,7 +65,8 @@ impl Plugin for ModificationPlugin {
             SystemSet::on_update(GameState::InModification)
                 .with_system(sliding_window)
                 .with_system(modification_input)
-                .with_system(highlight_modification_element),
+                .with_system(highlight_modification_element)
+                .with_system(draft_pick),
         );
     }
 }

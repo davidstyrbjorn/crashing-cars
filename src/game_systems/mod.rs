@@ -18,6 +18,7 @@ mod timer;
 
 pub use ball::ball;
 pub use despawn_entities::despawn_entities;
+pub use draft_pick::draft_pick;
 pub use highlight_modification_element::highlight_modification_element;
 pub use modification_input::modification_input;
 pub use modifiers::*;

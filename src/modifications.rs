@@ -49,7 +49,7 @@ impl Modifications {
         self.modifications.remove(idx).clone()
     }
 
-    pub fn modification_picked(modification_type: ModificationType, mut commands: Commands) {
+    pub fn modification_picked(modification_type: ModificationType, commands: &mut Commands) {
         match modification_type {
             ModificationType::GoalKeeper { to } => {
                 commands.entity(to).insert(GoalKeeper);
