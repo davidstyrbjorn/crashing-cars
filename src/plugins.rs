@@ -18,6 +18,10 @@ impl Plugin for GamePlugin {
             SystemSet::on_update(GameState::InGame)
                 .label(Label::Pre)
                 .before(Label::Main)
+                .with_system(new_round_player)
+                .with_system(new_round_ball)
+                .with_system(new_round_timer)
+                .with_system(new_round_score_counter)
                 .with_system(reset_base_system),
         )
         .add_system_set(
@@ -41,7 +45,8 @@ impl Plugin for GamePlugin {
         .add_system_set(
             SystemSet::on_enter(GameState::InGame)
                 .with_system(setup_game)
-                .with_system(despawn_entities::<OnMainMenu>),
+                .with_system(despawn_entities::<OnMainMenu>)
+                .with_system(despawn_entities::<OnModification>),
         )
         .add_system_set(SystemSet::on_exit(GameState::InGame).with_system(on_round_end));
     }
@@ -66,7 +71,8 @@ impl Plugin for ModificationPlugin {
                 .with_system(sliding_window)
                 .with_system(modification_input)
                 .with_system(highlight_modification_element)
-                .with_system(draft_pick),
+                .with_system(draft_pick)
+                .with_system(modification_element_remove),
         );
     }
 }

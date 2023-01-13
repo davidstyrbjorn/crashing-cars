@@ -1,5 +1,6 @@
 mod components;
 mod constants;
+mod events;
 mod game_systems;
 mod input;
 mod modifications;
@@ -13,6 +14,7 @@ mod prelude {
 
     pub use crate::components::*;
     pub use crate::constants::*;
+    pub use crate::events::*;
     pub use crate::game_systems::*;
     pub use crate::input::*;
     pub use crate::modifications::*;
@@ -38,6 +40,10 @@ mod prelude {
         pub current_idx: usize,
         pub modifications: Vec<Modification>,
         pub pick_order: VecDeque<Entity>,
+    }
+    #[derive(Resource)]
+    pub struct StartupFlags {
+        pub in_game: bool,
     }
     pub struct ModificationResource {}
     pub use bevy::prelude::*;
@@ -70,6 +76,9 @@ fn main() {
             pick_order: VecDeque::new(),
         })
         .insert_resource(ScoreCounter { score: (0, 0) })
+        .insert_resource(StartupFlags { in_game: false })
+        .add_event::<DraftPickEvent>()
+        .add_event::<ModificationDone>()
         .add_plugins(DefaultPlugins.set(WindowPlugin {
             window: WindowDescriptor {
                 title: "Crashing Cars".into(),

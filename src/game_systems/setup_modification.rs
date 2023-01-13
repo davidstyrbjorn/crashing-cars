@@ -78,6 +78,7 @@ pub fn setup_modification(
                 ..default()
             },
             SlidingWindow(start_offset),
+            OnModification,
         ))
         .with_children(|parent| {
             parent.spawn(

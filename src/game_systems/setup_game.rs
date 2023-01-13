@@ -4,8 +4,14 @@ pub fn setup_game(
     mut commands: Commands,
     asset_server: Res<AssetServer>,
     mut meshes: ResMut<Assets<Mesh>>,
+    mut startup_flags: ResMut<StartupFlags>,
     mut materials: ResMut<Assets<ColorMaterial>>,
 ) {
+    if startup_flags.in_game {
+        return;
+    }
+    startup_flags.in_game = true;
+
     spawn_player(
         &mut commands,
         (KeyCode::A, KeyCode::D),

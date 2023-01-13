@@ -31,6 +31,9 @@ pub struct BallReset; // Flag component
 pub struct OnMainMenu;
 
 #[derive(Component)]
+pub struct OnModification;
+
+#[derive(Component)]
 pub struct SlidingWindow(pub f32);
 
 // In here we should store all sorts of stats we want to modify in the game
@@ -70,13 +73,6 @@ pub struct ModificationElement {
 
 #[derive(Component)]
 pub struct CurrentlyPicking;
-
-// Message component for when draft pick was made
-#[derive(Component)]
-pub struct DraftPick {
-    pub modification: Modification,
-    pub who: Entity,
-}
 
 #[derive(Component)]
 pub struct Turret;
