@@ -9,7 +9,7 @@ use std::fs::File;
 // Each modification to the game will be represented by a enum state
 #[derive(Clone, Deserialize, Debug, PartialEq)]
 pub enum ModificationType {
-    GoalKeeper { to: Entity },
+    GoalKeeper { team: Team },
     IncreaseSpeed { to: Entity },
     DecreaseDegrade { to: Entity },
     Turret { to: Entity },
@@ -51,9 +51,7 @@ impl Modifications {
 
     pub fn modification_picked(modification_type: ModificationType, commands: &mut Commands) {
         match modification_type {
-            ModificationType::GoalKeeper { to } => {
-                commands.entity(to).insert(GoalKeeper);
-            }
+            ModificationType::GoalKeeper { team } => spawn_goal_keeper(commands, team),
             ModificationType::IncreaseSpeed { to } => {
                 commands.entity(to).insert(LinearSpeedModifier(1.2));
                 commands.entity(to).insert(AngularSpeedModifier(1.2));

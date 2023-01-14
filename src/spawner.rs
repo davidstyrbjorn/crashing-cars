@@ -47,8 +47,10 @@ pub fn spawn_player(
     team: Team,
 ) {
     let mut rotation_z = PI / 2.0;
+    let mut color = Color::BLUE;
     if team == Team::Red {
         rotation_z = -PI / 2.0;
+        color = Color::RED;
     }
     commands.spawn((
         Player {
@@ -60,6 +62,7 @@ pub fn spawn_player(
         SpriteBundle {
             sprite: Sprite {
                 custom_size: Some(Vec2::new(PLAYER_SIZE.x, PLAYER_SIZE.y)),
+                color,
                 ..Default::default()
             },
             transform: Transform {
@@ -182,4 +185,32 @@ pub fn spawn_level_box(commands: &mut Commands) {
             )),
         ));
     });
+}
+
+pub fn spawn_goal_keeper(commands: &mut Commands, team: Team) {
+    let mut spawn_position = Vec3::new(-WINDOW_WIDTH / 2.0, 0.0, 0.0);
+    let mut color = Color::RED;
+
+    if team == Team::Blue {
+        spawn_position.x = WINDOW_WIDTH / 2.0;
+        color = Color::BLUE;
+    }
+
+    println!("SPAWNING A GOAL KEERP");
+
+    commands.spawn((
+        GoalKeeper { team },
+        SpriteBundle {
+            sprite: Sprite {
+                custom_size: Some(Vec2::new(GOAL_KEEPER_WIDTH, GOAL_KEEPER_HEIGHT)),
+                color,
+                ..default()
+            },
+            transform: Transform {
+                translation: spawn_position,
+                ..default()
+            },
+            ..default()
+        },
+    ));
 }

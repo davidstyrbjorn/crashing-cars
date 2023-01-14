@@ -13,7 +13,9 @@ pub fn draft_pick(
         println!("RUNNING: {}", draft_pick.modification.title);
         // Process
         let modification_type = match draft_pick.modification.title.as_str() {
-            "Outsorcing" => Some(ModificationType::GoalKeeper { to: draft_pick.who }),
+            "Outsourcing" => Some(ModificationType::GoalKeeper {
+                team: draft_pick.who_player.team.clone(),
+            }),
             "Furiously Fast" => Some(ModificationType::IncreaseSpeed { to: draft_pick.who }),
             "Snappy Hamster" => Some(ModificationType::DecreaseDegrade { to: draft_pick.who }),
             "Lock n' Load" => Some(ModificationType::Turret { to: draft_pick.who }),
@@ -34,6 +36,8 @@ pub fn draft_pick(
         // Apply modification to game
         if let Some(modification_type) = modification_type {
             Modifications::modification_picked(modification_type, &mut commands);
+        } else {
+            panic!("RUNNING A MODIFICATION WITH NO DATA...");
         }
 
         // Pick next

@@ -1,6 +1,7 @@
 mod ball;
 mod despawn_entities;
 mod draft_pick;
+mod goal_keeper;
 mod highlight_modification_element;
 mod modification_element_remove;
 mod modification_input;

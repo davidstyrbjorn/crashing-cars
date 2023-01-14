@@ -1,12 +1,13 @@
 use crate::prelude::*;
+use serde::Deserialize;
 
-#[derive(PartialEq)]
+#[derive(Clone, Debug, PartialEq, Deserialize)]
 pub enum Team {
     Red,  // left
     Blue, // right
 }
 
-#[derive(Component)]
+#[derive(Component, Clone)]
 pub struct Player {
     pub spawn_position: Vec3,
     pub score: u8,
@@ -65,7 +66,9 @@ pub struct AngularSpeedModifier(pub f32);
 pub struct AngularDegradeModifier(pub f32);
 
 #[derive(Component)]
-pub struct GoalKeeper;
+pub struct GoalKeeper {
+    pub team: Team,
+}
 
 #[derive(Component)]
 pub struct ModificationElement {
