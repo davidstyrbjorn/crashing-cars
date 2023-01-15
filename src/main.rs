@@ -67,7 +67,7 @@ fn main() {
             ..Default::default()
         })
         .insert_resource(RoundTimerConfig {
-            timer: Timer::new(Duration::from_secs(5), TimerMode::Once),
+            timer: Timer::new(Duration::from_secs(20), TimerMode::Once),
         })
         .insert_resource(Modifications::load())
         .insert_resource(DraftResource {
@@ -103,13 +103,3 @@ fn main() {
 
     app.run();
 }
-
-// fn setup_systems_for_menu(app: &mut App) {
-//     app.add_system_set(SystemSet::on_update(GameState::MainMenu).with_system(menu_ui_system))
-//         .add_system_set(
-//             SystemSet::on_enter(GameState::MainMenu).with_system(main_menu_setup_system),
-//         )
-//         .add_system_set(
-//             SystemSet::on_exit(GameState::MainMenu).with_system(main_menu_cleanup_system),
-//         );
-// }

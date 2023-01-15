@@ -44,12 +44,12 @@ TODO:
 [x] GAME: transition to game after modification
 [x] MODIFICATION: ui
 MODIFICATIONS
-[] MOD: GoalKeeper
+[x] MOD: GoalKeeper
 [x] MOD: IncreaseSpeed
 [ish] MOD: DecreaseDegrade (needs some more polish)
+[x] MOD: ModifyField
 [] MOD: Turret
 [] MOD: Inverted
-[] MOD: ModifyField
 [] MOD: AddHazard
 [] MOD: ModifyCar
 

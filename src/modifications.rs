@@ -69,7 +69,8 @@ impl Modifications {
                 commands.entity(to).insert(Inverted(number_of_rounds));
             }
             ModificationType::ModifyField { counter } => {
-                commands.spawn(ModifyField(counter));
+                // commands.spawn(ModifyField(counter));
+                spawn_modify_field(commands, counter);
             }
             ModificationType::AddHazard { counter } => {
                 commands.spawn(AddHazard(counter));

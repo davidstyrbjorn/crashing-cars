@@ -14,14 +14,13 @@ pub fn spawn_ball(
     meshes: &mut ResMut<Assets<Mesh>>,
     materials: &mut ResMut<Assets<ColorMaterial>>,
 ) -> Entity {
-    println!("SPAWNING BALLS");
     commands
         .spawn((
             Ball,
             MaterialMesh2dBundle {
                 mesh: meshes.add(shape::Circle::new(BALL_RADIUS).into()).into(),
                 material: materials.add(ColorMaterial::from(Color::AQUAMARINE)),
-                transform: Transform::from_translation(Vec3::new(0., 0.0, 0.0)),
+                transform: Transform::from_translation(Vec3::new(0.0, 0.0, 0.0)),
                 ..default()
             },
             RigidBody::Dynamic,
@@ -33,7 +32,7 @@ pub fn spawn_ball(
                 angular_damping: 0.0,
             },
             Velocity::zero(),
-            ColliderMassProperties::Mass(0.025),
+            // ColliderMassProperties::Mass(0.025),
         ))
         .id()
 }
@@ -188,29 +187,30 @@ pub fn spawn_level_box(commands: &mut Commands) {
 }
 
 pub fn spawn_goal_keeper(commands: &mut Commands, team: Team) {
-    let mut spawn_position = Vec3::new(-WINDOW_WIDTH / 2.0, 0.0, 0.0);
-    let mut color = Color::RED;
+    let mut spawn_position = Vec3::new(-WINDOW_WIDTH / 2.4, 0.0, 0.0);
 
     if team == Team::Blue {
-        spawn_position.x = WINDOW_WIDTH / 2.0;
-        color = Color::BLUE;
+        spawn_position.x = spawn_position.x * -1.0;
     }
-
-    println!("SPAWNING A GOAL KEERP");
 
     commands.spawn((
         GoalKeeper { team },
-        SpriteBundle {
-            sprite: Sprite {
-                custom_size: Some(Vec2::new(GOAL_KEEPER_WIDTH, GOAL_KEEPER_HEIGHT)),
-                color,
-                ..default()
-            },
-            transform: Transform {
-                translation: spawn_position,
-                ..default()
-            },
-            ..default()
-        },
+        TransformBundle::from_transform(Transform::from_translation(spawn_position)),
+        Collider::cuboid(GOAL_KEEPER_WIDTH, GOAL_KEEPER_HEIGHT),
+    ));
+}
+
+pub fn spawn_modify_field(commands: &mut Commands, counter: u32) {
+    const WIDTH: f32 = 100.0;
+    const HEIGHT: f32 = 10.0;
+
+    commands.spawn((
+        Collider::cuboid(HEIGHT, WIDTH),
+        TransformBundle::from(Transform::from_xyz(-100.0, 0.0, 0.0)),
+    ));
+
+    commands.spawn((
+        Collider::cuboid(HEIGHT, WIDTH),
+        TransformBundle::from(Transform::from_xyz(100.0, 0.0, 0.0)),
     ));
 }

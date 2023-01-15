@@ -40,7 +40,8 @@ impl Plugin for GamePlugin {
                 .with_system(ball)
                 .with_system(player_move)
                 .with_system(score_text)
-                .with_system(timer),
+                .with_system(timer)
+                .with_system(goal_keeper),
         )
         .add_system_set(
             SystemSet::on_enter(GameState::InGame)
