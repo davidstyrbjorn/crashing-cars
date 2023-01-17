@@ -17,17 +17,17 @@ pub fn on_round_end(
     mut commands: Commands,
     mut score_counter: ResMut<ScoreCounter>,
     mut draft_resource: ResMut<DraftResource>,
-    mut query: Query<(&mut Player, Entity)>,
+    mut query: Query<(&mut Player, &mut Velocity, Entity)>,
 ) {
     // See score for round, assign score to player
-    query.iter_mut().for_each(|(mut player, _)| {
+    query.iter_mut().for_each(|(mut player, _, _)| {
         (*player).score += calculate_score_for_player(&player, score_counter.score);
     });
 
     // TODO Make this the actual orrect order
     query
         .iter()
-        .map(|(player, entity)| (player.score, entity))
+        .map(|(player, _, entity)| (player.score, entity))
         .for_each(|(_, entity)| {
             draft_resource.pick_order.push_back(entity);
         });
@@ -35,6 +35,10 @@ pub fn on_round_end(
     // TODO: dangerous-ish unwrap here
     let first = draft_resource.pick_order.pop_back().unwrap();
     commands.entity(first).insert(CurrentlyPicking);
+
+    query.iter_mut().for_each(|(_, mut vel, _)| {
+        vel.angvel = 0.0;
+    });
 
     // Reset
     draft_resource.current_idx = 0;

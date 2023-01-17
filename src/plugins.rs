@@ -22,7 +22,8 @@ impl Plugin for GamePlugin {
                 .with_system(new_round_ball)
                 .with_system(new_round_timer)
                 .with_system(new_round_score_counter)
-                .with_system(reset_base_system),
+                .with_system(reset_base_system)
+                .with_system(projectile),
         )
         .add_system_set(
             SystemSet::on_update(GameState::InGame)
@@ -31,7 +32,8 @@ impl Plugin for GamePlugin {
                 .after(Label::Pre)
                 .with_system(modifier_angular_speed)
                 .with_system(modifier_angular_degrade)
-                .with_system(modifier_linear_speed),
+                .with_system(modifier_linear_speed)
+                .with_system(turret),
         )
         .add_system_set(
             SystemSet::on_update(GameState::InGame)

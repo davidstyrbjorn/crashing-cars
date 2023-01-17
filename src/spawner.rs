@@ -42,6 +42,7 @@ pub fn spawn_player(
     left_right: (KeyCode, KeyCode),
     up_down: (KeyCode, KeyCode),
     select: KeyCode,
+    turret: KeyCode,
     spawn_position: Vec3,
     team: Team,
 ) {
@@ -52,6 +53,7 @@ pub fn spawn_player(
         color = Color::RED;
     }
     commands.spawn((
+        Turret,
         Player {
             spawn_position,
             score: 0,
@@ -93,6 +95,7 @@ pub fn spawn_player(
                     Action::Move,
                 )
                 .insert(select, Action::Select)
+                .insert(turret, Action::Turret)
                 .build(),
         },
         RigidBody::Dynamic,
@@ -212,5 +215,23 @@ pub fn spawn_modify_field(commands: &mut Commands, counter: u32) {
     commands.spawn((
         Collider::cuboid(HEIGHT, WIDTH),
         TransformBundle::from(Transform::from_xyz(100.0, 0.0, 0.0)),
+    ));
+}
+
+pub fn spawn_projectile(commands: &mut Commands, origin: Vec3, rotation: Quat, time: Time) {
+    // matrix = matrix.mul_mat4(&Mat4::from_euler(EulerRot::XYZ, 0.0, 0.0, rotation));
+    // matrix = matrix.mul_mat4(&Mat4::from_translation(Vec3::Y * 50.0));
+
+    let direction = rotation * Vec3::Y;
+    let offset = PLAYER_SIZE.x / 2.0;
+    let matrix = Mat4::from_translation(origin + direction * offset);
+
+    commands.spawn((
+        Projectile {
+            direction,
+            spawned_at_time: time.elapsed().as_secs(),
+        },
+        TransformBundle::from_transform(Transform::from_matrix(matrix)),
+        Collider::ball(6.0),
     ));
 }

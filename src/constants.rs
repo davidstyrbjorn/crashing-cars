@@ -14,6 +14,9 @@ pub const ANGULAR_DEGRADE: f32 = 0.3;
 pub const TERMINAL_FORCE: f32 = 20.0;
 pub const BALL_RADIUS: f32 = 20.0;
 
+pub const PROJECTILE_SPEED: f32 = 1000.0;
+pub const PROJECTILE_LIFE_LENGTH: u64 = 5;
+
 pub const GOAL_KEEPER_WIDTH: f32 = 25.0;
 pub const GOAL_KEEPER_HEIGHT: f32 = PLAYER_SIZE.y * 0.5;
 

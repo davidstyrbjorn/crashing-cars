@@ -7,4 +7,5 @@ pub enum Action {
     Move,
     StartGame,
     Select,
+    Turret,
 }

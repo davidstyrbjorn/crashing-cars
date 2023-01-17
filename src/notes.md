@@ -47,8 +47,13 @@ MODIFICATIONS
 [x] MOD: GoalKeeper
 [x] MOD: IncreaseSpeed
 [ish] MOD: DecreaseDegrade (needs some more polish)
+
 [x] MOD: ModifyField
 [] MOD: Turret
+[] Knockback
+[] Projectiles can kill other players
+[x] Shots can be fired
+
 [] MOD: Inverted
 [] MOD: AddHazard
 [] MOD: ModifyCar

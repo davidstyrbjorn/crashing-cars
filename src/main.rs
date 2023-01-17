@@ -67,7 +67,7 @@ fn main() {
             ..Default::default()
         })
         .insert_resource(RoundTimerConfig {
-            timer: Timer::new(Duration::from_secs(20), TimerMode::Once),
+            timer: Timer::new(Duration::from_secs(10), TimerMode::Once),
         })
         .insert_resource(Modifications::load())
         .insert_resource(DraftResource {

@@ -17,6 +17,7 @@ pub fn setup_game(
         (KeyCode::A, KeyCode::D),
         (KeyCode::W, KeyCode::S),
         KeyCode::Space,
+        KeyCode::E,
         Vec3::new(-WINDOW_WIDTH / 4.0, 0.0, 0.0),
         Team::Red,
     );
@@ -25,6 +26,7 @@ pub fn setup_game(
         (KeyCode::Left, KeyCode::Right),
         (KeyCode::Up, KeyCode::Down),
         KeyCode::Space,
+        KeyCode::RShift,
         Vec3::new(WINDOW_WIDTH / 4.0, 0.0, 0.0),
         Team::Blue,
     );

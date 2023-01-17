@@ -82,6 +82,12 @@ pub struct CurrentlyPicking;
 pub struct Turret;
 
 #[derive(Component)]
+pub struct Projectile {
+    pub direction: Vec3,
+    pub spawned_at_time: u64,
+}
+
+#[derive(Component)]
 pub struct Inverted(pub usize);
 
 #[derive(Component)]

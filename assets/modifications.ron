@@ -16,6 +16,19 @@ Modifications(
             title: "Lock n' Load",
             description: "Turret to shoot the ball"
         ),
+                Modification(
+            title: "Lock n' Load",
+            description: "Turret to shoot the ball"
+        ),
+                Modification(
+            title: "Lock n' Load",
+            description: "Turret to shoot the ball"
+        ),
+                Modification(
+            title: "Lock n' Load",
+            description: "Turret to shoot the ball"
+        ),
+        
         Modification(
             title: "Mind Fuck",
             description: "Give the other player inverted controls"
