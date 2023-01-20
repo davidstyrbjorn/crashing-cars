@@ -61,3 +61,17 @@ MODIFICATIONS
 [] BUG: ball initial velocity weird
 [] TWEAK: sensor colliders for oob instead of manual checking
 [] JUICE: camera shake on ball hit
+
+[] GAME: Intro cutscene thingy
+
+On average from 2010 over 10 thousand people die every year from drunk driving accidents.
+
+The worst part is that the victims also include people minding their own business on the street, that is objectively bad.
+
+You crazy fucks are having beers and such then you put yourself in control of a metallic elephant with turbo engines. Jesus christ.
+
+For the love of god play this game instead to simulate the adrenaline flow of driving a blazer.
+
+I don't really mind saving lives you know, fucking hell it might even be my destiny, to save lives.
+
+Anyway here's the game...
