@@ -1,10 +1,7 @@
 use std::f32::consts::PI;
 
 use bevy::sprite::MaterialMesh2dBundle;
-use bevy_rapier2d::{
-    na::{Point, Point2},
-    rapier::prelude::ColliderBuilder,
-};
+use bevy_rapier2d::rapier::prelude::{ColliderBuilder, ColliderFlags};
 use leafwing_input_manager::user_input::InputKind;
 
 use crate::prelude::*;
@@ -45,73 +42,77 @@ pub fn spawn_player(
     turret: KeyCode,
     spawn_position: Vec3,
     team: Team,
-) {
+) -> Entity {
     let mut rotation_z = PI / 2.0;
     let mut color = Color::BLUE;
     if team == Team::Red {
         rotation_z = -PI / 2.0;
         color = Color::RED;
     }
-    commands.spawn((
-        Turret,
-        Player {
-            spawn_position,
-            score: 0,
-            team,
-        },
-        BaseStats::new(),
-        SpriteBundle {
-            sprite: Sprite {
-                custom_size: Some(Vec2::new(PLAYER_SIZE.x, PLAYER_SIZE.y)),
-                color,
+    commands
+        .spawn((
+            Turret,
+            Health(10),
+            Player {
+                spawn_position,
+                score: 0,
+                team,
+                spawn_rotation: rotation_z,
+            },
+            BaseStats::new(),
+            SpriteBundle {
+                sprite: Sprite {
+                    custom_size: Some(Vec2::new(PLAYER_SIZE.x, PLAYER_SIZE.y)),
+                    color,
+                    ..Default::default()
+                },
+                transform: Transform {
+                    translation: spawn_position,
+                    rotation: Quat::from_rotation_z(rotation_z),
+                    scale: Vec3::new(1.0, 1.0, 1.0),
+                },
                 ..Default::default()
             },
-            transform: Transform {
-                translation: spawn_position,
-                rotation: Quat::from_rotation_z(rotation_z),
-                scale: Vec3::new(1.0, 1.0, 1.0),
+            InputManagerBundle::<Action> {
+                action_state: ActionState::default(),
+                input_map: InputMap::default()
+                    .insert(
+                        VirtualDPad {
+                            left: InputKind::Keyboard(left_right.0),
+                            right: InputKind::Keyboard(left_right.1),
+                            down: InputKind::Keyboard(KeyCode::Numpad3),
+                            up: InputKind::Keyboard(KeyCode::Numpad4),
+                        },
+                        Action::Rotate,
+                    )
+                    .insert(
+                        VirtualDPad {
+                            left: InputKind::Keyboard(KeyCode::Numpad3),
+                            right: InputKind::Keyboard(KeyCode::Numpad0),
+                            up: InputKind::Keyboard(up_down.0),
+                            down: InputKind::Keyboard(up_down.1),
+                        },
+                        Action::Move,
+                    )
+                    .insert(select, Action::Select)
+                    .insert(turret, Action::Turret)
+                    .build(),
             },
-            ..Default::default()
-        },
-        InputManagerBundle::<Action> {
-            action_state: ActionState::default(),
-            input_map: InputMap::default()
-                .insert(
-                    VirtualDPad {
-                        left: InputKind::Keyboard(left_right.0),
-                        right: InputKind::Keyboard(left_right.1),
-                        down: InputKind::Keyboard(KeyCode::Numpad3),
-                        up: InputKind::Keyboard(KeyCode::Numpad4),
-                    },
-                    Action::Rotate,
-                )
-                .insert(
-                    VirtualDPad {
-                        left: InputKind::Keyboard(KeyCode::Numpad3),
-                        right: InputKind::Keyboard(KeyCode::Numpad0),
-                        up: InputKind::Keyboard(up_down.0),
-                        down: InputKind::Keyboard(up_down.1),
-                    },
-                    Action::Move,
-                )
-                .insert(select, Action::Select)
-                .insert(turret, Action::Turret)
-                .build(),
-        },
-        RigidBody::Dynamic,
-        LockedAxes::ROTATION_LOCKED,
-        Collider::cuboid(PLAYER_SIZE.x / 2.0, PLAYER_SIZE.y / 2.0),
-        Restitution::coefficient(0.4),
-        Damping {
-            linear_damping: 3.5,
-            angular_damping: 0.0,
-        },
-        ExternalForce {
-            force: Vec2::ZERO,
-            torque: 0.0,
-        },
-        Velocity::zero(),
-    ));
+            RigidBody::Dynamic,
+            LockedAxes::ROTATION_LOCKED,
+            Collider::cuboid(PLAYER_SIZE.x / 2.0, PLAYER_SIZE.y / 2.0),
+            Restitution::coefficient(0.4),
+            Damping {
+                linear_damping: 3.5,
+                angular_damping: 0.0,
+            },
+            ExternalImpulse {
+                impulse: Vec2::new(0.0, 0.0),
+                torque_impulse: 0.0,
+            },
+            Velocity::zero(),
+        ))
+        .id()
 }
 
 pub fn spawn_level_box(commands: &mut Commands) {
@@ -223,7 +224,7 @@ pub fn spawn_projectile(commands: &mut Commands, origin: Vec3, rotation: Quat, t
     // matrix = matrix.mul_mat4(&Mat4::from_translation(Vec3::Y * 50.0));
 
     let direction = rotation * Vec3::Y;
-    let offset = PLAYER_SIZE.x / 2.0;
+    let offset = PLAYER_SIZE.x * 1.5;
     let matrix = Mat4::from_translation(origin + direction * offset);
 
     commands.spawn((
@@ -233,5 +234,6 @@ pub fn spawn_projectile(commands: &mut Commands, origin: Vec3, rotation: Quat, t
         },
         TransformBundle::from_transform(Transform::from_matrix(matrix)),
         Collider::ball(6.0),
+        RigidBody::Fixed,
     ));
 }

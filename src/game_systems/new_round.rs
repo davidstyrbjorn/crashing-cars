@@ -4,18 +4,21 @@ use crate::prelude::*;
 
 pub fn new_round_player(
     mut events: EventReader<ModificationDone>,
-    mut query: Query<(&mut Transform, &Player)>,
+    mut query: Query<(&mut Transform, &mut Health, &Player)>,
 ) {
     // Reset player position
     for _ in events.iter() {
-        query.iter_mut().for_each(|(mut transform, player)| {
-            transform.translation = player.spawn_position;
-            let mut rotation_z = PI / 2.0;
-            if player.team == Team::Red {
-                rotation_z = -PI / 2.0;
-            }
-            transform.rotation = Quat::from_rotation_z(rotation_z);
-        });
+        query
+            .iter_mut()
+            .for_each(|(mut transform, mut health, player)| {
+                transform.translation = player.spawn_position;
+                let mut rotation_z = PI / 2.0;
+                if player.team == Team::Red {
+                    rotation_z = -PI / 2.0;
+                }
+                health.0 = 10;
+                transform.rotation = Quat::from_rotation_z(rotation_z);
+            });
     }
 }
 

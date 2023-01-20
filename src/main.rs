@@ -22,6 +22,7 @@ mod prelude {
     pub use crate::spawner::*;
     #[derive(Debug, Clone, Eq, PartialEq, Hash)]
     pub enum GameState {
+        Intro,
         MainMenu,
         InGame,
         InModification,
@@ -29,6 +30,10 @@ mod prelude {
     }
     #[derive(Resource)]
     pub struct RoundTimerConfig {
+        pub timer: Timer,
+    }
+    #[derive(Resource)]
+    pub struct IntroTimerResource {
         pub timer: Timer,
     }
     #[derive(Resource)]
@@ -45,6 +50,8 @@ mod prelude {
     pub struct StartupFlags {
         pub in_game: bool,
     }
+    #[derive(Resource)]
+    pub struct Players(pub Vec<Entity>);
     pub struct ModificationResource {}
     pub use bevy::prelude::*;
     pub use bevy::time::FixedTimestep;
@@ -67,7 +74,7 @@ fn main() {
             ..Default::default()
         })
         .insert_resource(RoundTimerConfig {
-            timer: Timer::new(Duration::from_secs(10), TimerMode::Once),
+            timer: Timer::new(Duration::from_secs(30), TimerMode::Once),
         })
         .insert_resource(Modifications::load())
         .insert_resource(DraftResource {
@@ -77,8 +84,11 @@ fn main() {
         })
         .insert_resource(ScoreCounter { score: (0, 0) })
         .insert_resource(StartupFlags { in_game: false })
+        .insert_resource(Players(Vec::new()))
         .add_event::<DraftPickEvent>()
         .add_event::<ModificationDone>()
+        .add_event::<ProjectileEvent>()
+        .add_event::<GoalEvent>()
         .add_plugins(DefaultPlugins.set(WindowPlugin {
             window: WindowDescriptor {
                 title: "Crashing Cars".into(),
@@ -91,6 +101,7 @@ fn main() {
         .add_plugin(SharedPlugin)
         .add_plugin(GamePlugin)
         .add_plugin(MenuPlugin)
+        .add_plugin(IntroPlugin)
         .add_plugin(ModificationPlugin)
         .add_plugin(RapierPhysicsPlugin::<NoUserData>::pixels_per_meter(
             PIXELS_PER_METER,

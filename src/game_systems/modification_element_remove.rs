@@ -7,6 +7,7 @@ pub fn modification_element_remove(
 ) {
     for draft_pick in events.iter() {
         let idx = draft_pick.idx;
+
         // remove the entity that was picked (UI element)
         query
             .iter()

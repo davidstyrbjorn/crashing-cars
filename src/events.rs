@@ -10,3 +10,12 @@ pub struct DraftPickEvent {
 
 // Message for when modification state is done with its shit
 pub struct ModificationDone;
+
+pub struct ProjectileEvent {
+    pub hit_who: Entity,
+    pub projectile: Entity,
+}
+
+pub struct GoalEvent {
+    pub team: Team,
+}

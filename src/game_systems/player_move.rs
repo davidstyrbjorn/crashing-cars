@@ -10,7 +10,6 @@ pub fn player_move(
     mut query: Query<
         (
             &ActionState<Action>,
-            &mut ExternalForce,
             &mut Transform,
             &mut Velocity,
             &Player,
@@ -19,7 +18,7 @@ pub fn player_move(
         With<Player>,
     >,
 ) {
-    for (input, mut _force, mut transform, mut velocity, player, base_stat) in query.iter_mut() {
+    for (input, mut transform, mut velocity, player, base_stat) in query.iter_mut() {
         if input.pressed(Action::Rotate) {
             let axis_pair = input.axis_pair(Action::Rotate).unwrap();
             velocity.angvel -= axis_pair.x() * base_stat.angular_speed * time.delta_seconds();

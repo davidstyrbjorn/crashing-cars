@@ -51,7 +51,8 @@ MODIFICATIONS
 [x] MOD: ModifyField
 [] MOD: Turret
 [] Knockback
-[] Projectiles can kill other players
+[x] Projectiles can kill other players
+[] Make projectiles destroy on wall hit
 [x] Shots can be fired
 
 [] MOD: Inverted
@@ -61,8 +62,10 @@ MODIFICATIONS
 [] BUG: ball initial velocity weird
 [] TWEAK: sensor colliders for oob instead of manual checking
 [] JUICE: camera shake on ball hit
+[] JUICE: blinking props on goal
+[] JUICE: countdown on round start + on goal
 
-[] GAME: Intro cutscene thingy
+[x] GAME: Intro cutscene thingy
 
 On average from 2010 over 10 thousand people die every year from drunk driving accidents.
 

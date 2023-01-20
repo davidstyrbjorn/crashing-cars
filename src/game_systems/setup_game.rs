@@ -5,6 +5,7 @@ pub fn setup_game(
     asset_server: Res<AssetServer>,
     mut meshes: ResMut<Assets<Mesh>>,
     mut startup_flags: ResMut<StartupFlags>,
+    mut players: ResMut<Players>,
     mut materials: ResMut<Assets<ColorMaterial>>,
 ) {
     if startup_flags.in_game {
@@ -12,7 +13,7 @@ pub fn setup_game(
     }
     startup_flags.in_game = true;
 
-    spawn_player(
+    let e1 = spawn_player(
         &mut commands,
         (KeyCode::A, KeyCode::D),
         (KeyCode::W, KeyCode::S),
@@ -21,7 +22,7 @@ pub fn setup_game(
         Vec3::new(-WINDOW_WIDTH / 4.0, 0.0, 0.0),
         Team::Red,
     );
-    spawn_player(
+    let e2 = spawn_player(
         &mut commands,
         (KeyCode::Left, KeyCode::Right),
         (KeyCode::Up, KeyCode::Down),
@@ -30,6 +31,9 @@ pub fn setup_game(
         Vec3::new(WINDOW_WIDTH / 4.0, 0.0, 0.0),
         Team::Blue,
     );
+
+    // Fill our lil array
+    players.0 = vec![e1, e2];
 
     spawn_ball(&mut commands, &mut meshes, &mut materials);
     spawn_level_box(&mut commands);

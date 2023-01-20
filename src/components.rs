@@ -3,13 +3,14 @@ use serde::Deserialize;
 
 #[derive(Clone, Debug, PartialEq, Deserialize)]
 pub enum Team {
-    Red,  // left
-    Blue, // right
+    Red = 0,  // left
+    Blue = 1, // right
 }
 
 #[derive(Component, Clone)]
 pub struct Player {
     pub spawn_position: Vec3,
+    pub spawn_rotation: f32,
     pub score: u8,
     pub team: Team,
 }
@@ -98,3 +99,12 @@ pub struct AddHazard(pub u32);
 
 #[derive(Component)]
 pub struct ModifyCar(pub u32);
+
+#[derive(Component)]
+pub struct Health(pub usize);
+
+#[derive(Component)]
+pub struct IntroText {
+    pub order: usize,
+    pub time: u32,
+}
