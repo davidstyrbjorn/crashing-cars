@@ -14,11 +14,11 @@ pub const ANGULAR_DEGRADE: f32 = 0.3;
 pub const TERMINAL_FORCE: f32 = 20.0;
 pub const BALL_RADIUS: f32 = 20.0;
 
-pub const PROJECTILE_SPEED: f32 = 1000.0;
-pub const PROJECTILE_LIFE_LENGTH: u64 = 5;
+pub const PROJECTILE_SPEED: f32 = 2000.0;
+pub const PROJECTILE_LIFE_LENGTH: u128 = 200;
 pub const PROJECTILE_KNOCKBACK: f32 = 25.0;
 
-pub const GOAL_KEEPER_WIDTH: f32 = 25.0;
-pub const GOAL_KEEPER_HEIGHT: f32 = PLAYER_SIZE.y * 0.5;
+pub const GOAL_KEEPER_WIDTH: f32 = 10.0;
+pub const GOAL_KEEPER_HEIGHT: f32 = 60.0;
 
 pub const MODIFICATION_COUNT: usize = 3;

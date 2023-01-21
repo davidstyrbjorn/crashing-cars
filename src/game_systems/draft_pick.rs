@@ -8,10 +8,16 @@ pub fn draft_pick(
     mut app_state: ResMut<State<GameState>>,
     mut modifications: ResMut<Modifications>,
     mut commands: Commands,
+    players: Res<Players>,
 ) {
     for draft_pick in events.iter() {
-        println!("RUNNING: {}", draft_pick.modification.title);
         // Process
+        let opposite_player = players
+            .0
+            .iter()
+            .filter(|player| **player != draft_pick.who)
+            .nth(0)
+            .unwrap();
         let modification_type = match draft_pick.modification.title.as_str() {
             "Outsourcing" => Some(ModificationType::GoalKeeper {
                 team: draft_pick.who_player.team.clone(),
@@ -20,7 +26,7 @@ pub fn draft_pick(
             "Snappy Hamster" => Some(ModificationType::DecreaseDegrade { to: draft_pick.who }),
             "Lock n' Load" => Some(ModificationType::Turret { to: draft_pick.who }),
             "Mind Fuck" => Some(ModificationType::Inverted {
-                to: draft_pick.who,
+                to: *opposite_player,
                 number_of_rounds: 2,
             }),
             // TODO: Counter should be some good value

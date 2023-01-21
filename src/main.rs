@@ -37,6 +37,8 @@ mod prelude {
         pub timer: Timer,
     }
     #[derive(Resource)]
+    pub struct PrepareTimerResource(pub Timer); // Resource used to count down the start of round
+    #[derive(Resource)]
     pub struct ScoreCounter {
         pub score: (u8, u8),
     }
@@ -63,18 +65,21 @@ mod prelude {
 use bevy::diagnostic::FrameTimeDiagnosticsPlugin;
 pub use prelude::*;
 
-// Convert modifications and shit to be a shared resource
 fn main() {
     let mut app = App::new();
 
-    app.add_state(GameState::MainMenu)
+    app.add_state(GameState::InGame)
         .insert_resource(ClearColor(Color::DARK_GRAY))
         .insert_resource(RapierConfiguration {
             gravity: Vec2::ZERO,
             ..Default::default()
         })
+        .insert_resource(PrepareTimerResource(Timer::new(
+            Duration::from_secs(3),
+            TimerMode::Once,
+        )))
         .insert_resource(RoundTimerConfig {
-            timer: Timer::new(Duration::from_secs(30), TimerMode::Once),
+            timer: Timer::new(Duration::from_secs(5), TimerMode::Once),
         })
         .insert_resource(Modifications::load())
         .insert_resource(DraftResource {

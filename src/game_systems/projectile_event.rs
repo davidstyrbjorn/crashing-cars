@@ -6,9 +6,6 @@ pub fn projectile_event(
     mut query: Query<(&mut Health, Entity), With<Player>>,
 ) {
     for projectile_event in event_reader.iter() {
-        // kill the projectile entity
-        commands.entity(projectile_event.projectile).despawn();
-
         // remove hp from victim
         let victim = query
             .iter_mut()
@@ -18,5 +15,14 @@ pub fn projectile_event(
                 hp.0 -= 1;
             }
         }
+    }
+}
+
+pub fn projectile_event_despawn(
+    mut commands: Commands,
+    mut event_reader: EventReader<ProjectileEvent>,
+) {
+    for projectile_event in event_reader.iter() {
+        commands.entity(projectile_event.hit_who).despawn();
     }
 }

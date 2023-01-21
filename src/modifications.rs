@@ -13,7 +13,7 @@ pub enum ModificationType {
     IncreaseSpeed { to: Entity },
     DecreaseDegrade { to: Entity },
     Turret { to: Entity },
-    Inverted { to: Entity, number_of_rounds: usize },
+    Inverted { to: Entity, number_of_rounds: u8 },
     ModifyField { counter: u32 },
     AddHazard { counter: u32 },
     ModifyCar { to: Entity, counter: u32 },
@@ -66,7 +66,9 @@ impl Modifications {
                 to,
                 number_of_rounds,
             } => {
-                commands.entity(to).insert(Inverted(number_of_rounds));
+                commands
+                    .entity(to)
+                    .insert(InvertedControls(number_of_rounds));
             }
             ModificationType::ModifyField { counter } => {
                 // commands.spawn(ModifyField(counter));

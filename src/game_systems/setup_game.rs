@@ -40,7 +40,7 @@ pub fn setup_game(
 
     // Spawn round timer text
     commands
-        .spawn_bundle(
+        .spawn(
             TextBundle::from_sections([
                 TextSection::new(
                     "TIME: ",
@@ -63,9 +63,9 @@ pub fn setup_game(
         )
         .insert(TimerText);
 
-    // Spawn round timer text
+    // Spawn score text
     commands
-        .spawn_bundle(
+        .spawn(
             TextBundle::from_sections([TextSection::new(
                 "TIME: ",
                 TextStyle {
@@ -90,4 +90,25 @@ pub fn setup_game(
             }),
         )
         .insert(ScoreText);
+
+    // Spawn prepare round text
+    commands.spawn((
+        Text2dBundle {
+            transform: Transform::from_translation(Vec3::new(0.0, 150.0, 0.0)),
+            text: Text::from_section(
+                "0",
+                TextStyle {
+                    color: Color::WHITE,
+                    font: asset_server.load("fonts/Modern_Mono.otf"),
+                    font_size: 90.0,
+                },
+            )
+            .with_alignment(TextAlignment {
+                vertical: VerticalAlign::Top,
+                horizontal: HorizontalAlign::Center,
+            }),
+            ..default()
+        },
+        PrepareTimerText,
+    ));
 }

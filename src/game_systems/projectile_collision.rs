@@ -1,6 +1,6 @@
 use crate::prelude::*;
 
-pub fn projectile_collision(
+pub fn projectile_collision_player(
     rapier_context: Res<RapierContext>,
     players: Res<Players>,
     query: Query<Entity, With<Projectile>>,

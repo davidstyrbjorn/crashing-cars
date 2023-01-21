@@ -49,21 +49,23 @@ MODIFICATIONS
 [ish] MOD: DecreaseDegrade (needs some more polish)
 
 [x] MOD: ModifyField
-[] MOD: Turret
-[] Knockback
+[x] MOD: Turret
+[x] Knockback
 [x] Projectiles can kill other players
-[] Make projectiles destroy on wall hit
 [x] Shots can be fired
+[x] JUICE: countdown on round start + on goal
+[x] MOD: Inverted
 
-[] MOD: Inverted
-[] MOD: AddHazard
+[] Turret: Make projectiles destroy on wall hit
+
 [] MOD: ModifyCar
+
+[] MOD: AddHazard
 
 [] BUG: ball initial velocity weird
 [] TWEAK: sensor colliders for oob instead of manual checking
 [] JUICE: camera shake on ball hit
 [] JUICE: blinking props on goal
-[] JUICE: countdown on round start + on goal
 
 [x] GAME: Intro cutscene thingy
 

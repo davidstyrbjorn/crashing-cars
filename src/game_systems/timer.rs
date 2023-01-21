@@ -4,9 +4,15 @@ use crate::prelude::*;
 pub fn timer(
     mut query: Query<&mut Text, With<TimerText>>,
     mut timer_config: ResMut<RoundTimerConfig>,
+    prepare_timer: Res<PrepareTimerResource>,
     mut app_state: ResMut<State<GameState>>,
     time: Res<Time>,
 ) {
+    // Dont tick this timer if the prepare timer is running
+    if !prepare_timer.0.finished() {
+        return;
+    }
+
     // Tick timer
     timer_config.timer.tick(time.delta());
 
@@ -24,4 +30,22 @@ pub fn timer(
             .floor()
     )
     .into();
+}
+
+pub fn prepare_timer(
+    time: Res<Time>,
+    mut prepare_timer: ResMut<PrepareTimerResource>,
+    mut query: Query<&mut Text, With<PrepareTimerText>>,
+) {
+    prepare_timer.0.tick(time.delta());
+
+    // Update UI
+    let mut text = query.single_mut();
+    let time_left = prepare_timer.0.duration().as_secs_f32() - prepare_timer.0.elapsed_secs();
+
+    if prepare_timer.0.finished() {
+        text.sections[0].value = String::from("");
+    } else {
+        text.sections[0].value = format!("{}", time_left.ceil());
+    }
 }

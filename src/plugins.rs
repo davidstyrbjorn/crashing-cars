@@ -45,7 +45,7 @@ impl Plugin for GamePlugin {
                 .with_system(modifier_angular_degrade)
                 .with_system(modifier_linear_speed)
                 .with_system(turret)
-                .with_system(projectile_collision)
+                .with_system(projectile_collision_player)
                 .with_system(health_reset_position),
         )
         .add_system_set(
@@ -56,11 +56,13 @@ impl Plugin for GamePlugin {
                 .with_system(player_move)
                 .with_system(score_text)
                 .with_system(timer)
+                .with_system(prepare_timer)
                 .with_system(projectile_event)
                 .with_system(goal_keeper)
                 .with_system(ball_scored_reset_players)
                 .with_system(ball_scored_update_score)
-                .with_system(ball_scored_reset_ball),
+                .with_system(ball_scored_reset_ball)
+                .with_system(ball_scored_reset_prepare_timer),
         )
         .add_system_set(
             SystemSet::on_enter(GameState::InGame)
@@ -69,7 +71,11 @@ impl Plugin for GamePlugin {
                 .with_system(despawn_entities::<OnModification>)
                 .with_system(despawn_entities::<Projectile>),
         )
-        .add_system_set(SystemSet::on_exit(GameState::InGame).with_system(on_round_end));
+        .add_system_set(
+            SystemSet::on_exit(GameState::InGame)
+                .with_system(on_round_end)
+                .with_system(inverted_controls_degrade),
+        );
     }
 }
 

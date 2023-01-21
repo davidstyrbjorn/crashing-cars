@@ -16,25 +16,36 @@ fn ball_scored(position: Vec3) -> Option<Team> {
 
 // Checks if ball has scored if so push event
 pub fn ball_score(
-    mut query: Query<(&mut Transform, &mut Velocity), With<Ball>>,
+    mut query: Query<(&Transform), With<Ball>>,
     mut event_writer: EventWriter<GoalEvent>,
 ) {
     // Check if ball transform is valid goal position
-    if let Ok((mut transform, mut velocity)) = query.get_single_mut() {
+    if let Ok(transform) = query.get_single_mut() {
         if let Some(team) = ball_scored(transform.translation) {
             event_writer.send(GoalEvent { team });
         }
     }
 }
 
-pub fn ball_scored_reset_players(
+pub fn ball_scored_reset_prepare_timer(
     mut event_reader: EventReader<GoalEvent>,
-    mut query: Query<(&mut Transform, &Player)>,
+    mut prepare_timer: ResMut<PrepareTimerResource>,
 ) {
     for _ in event_reader.iter() {
-        for (mut transform, player) in query.iter_mut() {
+        prepare_timer.0.reset();
+    }
+}
+
+pub fn ball_scored_reset_players(
+    mut event_reader: EventReader<GoalEvent>,
+    mut query: Query<(&mut Transform, &mut Velocity, &Player)>,
+) {
+    for _ in event_reader.iter() {
+        for (mut transform, mut velocity, player) in query.iter_mut() {
             transform.translation = player.spawn_position;
             transform.rotation = Quat::from_euler(EulerRot::XYZ, 0.0, 0.0, player.spawn_rotation);
+            velocity.angvel = 0.0;
+            velocity.linvel = Vec2::ZERO;
         }
     }
 }

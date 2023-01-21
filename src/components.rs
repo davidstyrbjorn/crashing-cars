@@ -85,11 +85,8 @@ pub struct Turret;
 #[derive(Component)]
 pub struct Projectile {
     pub direction: Vec3,
-    pub spawned_at_time: u64,
+    pub spawned_at_time: u128,
 }
-
-#[derive(Component)]
-pub struct Inverted(pub usize);
 
 #[derive(Component)]
 pub struct ModifyField(pub u32);
@@ -108,3 +105,9 @@ pub struct IntroText {
     pub order: usize,
     pub time: u32,
 }
+
+#[derive(Component)]
+pub struct PrepareTimerText;
+
+#[derive(Component)]
+pub struct InvertedControls(pub u8);

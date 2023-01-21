@@ -49,9 +49,10 @@ pub fn spawn_player(
         rotation_z = -PI / 2.0;
         color = Color::RED;
     }
+    color = Color::rgba(0.0, 0.0, 0.0, 0.0);
     commands
         .spawn((
-            Turret,
+            // Turret,
             Health(10),
             Player {
                 spawn_position,
@@ -100,7 +101,12 @@ pub fn spawn_player(
             },
             RigidBody::Dynamic,
             LockedAxes::ROTATION_LOCKED,
-            Collider::cuboid(PLAYER_SIZE.x / 2.0, PLAYER_SIZE.y / 2.0),
+            // Collider::cuboid(PLAYER_SIZE.x / 2.0, PLAYER_SIZE.y / 2.0),
+            Collider::triangle(
+                Vec2::new(0.0, 0.0),
+                Vec2::new(PLAYER_SIZE.x, 0.0),
+                Vec2::new(PLAYER_SIZE.x / 2.0, PLAYER_SIZE.y),
+            ),
             Restitution::coefficient(0.4),
             Damping {
                 linear_damping: 3.5,
@@ -191,7 +197,7 @@ pub fn spawn_level_box(commands: &mut Commands) {
 }
 
 pub fn spawn_goal_keeper(commands: &mut Commands, team: Team) {
-    let mut spawn_position = Vec3::new(-WINDOW_WIDTH / 2.4, 0.0, 0.0);
+    let mut spawn_position = Vec3::new(-WINDOW_WIDTH / 2.2, 0.0, 0.0);
 
     if team == Team::Blue {
         spawn_position.x = spawn_position.x * -1.0;
@@ -220,9 +226,6 @@ pub fn spawn_modify_field(commands: &mut Commands, counter: u32) {
 }
 
 pub fn spawn_projectile(commands: &mut Commands, origin: Vec3, rotation: Quat, time: Time) {
-    // matrix = matrix.mul_mat4(&Mat4::from_euler(EulerRot::XYZ, 0.0, 0.0, rotation));
-    // matrix = matrix.mul_mat4(&Mat4::from_translation(Vec3::Y * 50.0));
-
     let direction = rotation * Vec3::Y;
     let offset = PLAYER_SIZE.x * 1.5;
     let matrix = Mat4::from_translation(origin + direction * offset);
@@ -230,7 +233,7 @@ pub fn spawn_projectile(commands: &mut Commands, origin: Vec3, rotation: Quat, t
     commands.spawn((
         Projectile {
             direction,
-            spawned_at_time: time.elapsed().as_secs(),
+            spawned_at_time: time.elapsed().as_millis(),
         },
         TransformBundle::from_transform(Transform::from_matrix(matrix)),
         Collider::ball(6.0),

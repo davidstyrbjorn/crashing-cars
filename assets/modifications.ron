@@ -2,36 +2,24 @@ Modifications(
     modifications: [
         Modification(
             title: "Outsourcing",
-            description: "Goal Keeper"
+            description: "Goal Keeper (ONLY YOU)"
         ),
         Modification(
             title: "Furiously Fast",
-            description: "Increase Speed"
+            description: "Increase Speed (ONLY YOU)"
         ),
         Modification(
             title: "Snappy Hamster",
-            description: "Decrease Degrade Factor"
+            description: "Decrease Degrade Factor (ONLY YOU)"
         ),
         Modification(
             title: "Lock n' Load",
-            description: "Turret to shoot the ball"
-        ),
-                Modification(
-            title: "Lock n' Load",
-            description: "Turret to shoot the ball"
-        ),
-                Modification(
-            title: "Lock n' Load",
-            description: "Turret to shoot the ball"
-        ),
-                Modification(
-            title: "Lock n' Load",
-            description: "Turret to shoot the ball"
+            description: "Turret to shoot the ball (BOTH PLAYERS)"
         ),
         
         Modification(
             title: "Mind Fuck",
-            description: "Give the other player inverted controls"
+            description: "Give the other player inverted controls for 2 rounds (ENEMY PLAYER)"
         ),
         Modification(
             title: "Mutated Grounds",
@@ -43,7 +31,7 @@ Modifications(
         ),
         Modification(
             title: "That MTV Show",
-            description: "Add a thingy to your car"
+            description: "Add a thingy to your car (BOTH PLAYERS)"
         )
     ]
 )
