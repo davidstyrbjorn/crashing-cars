@@ -22,3 +22,6 @@ pub const GOAL_KEEPER_WIDTH: f32 = 10.0;
 pub const GOAL_KEEPER_HEIGHT: f32 = 60.0;
 
 pub const MODIFICATION_COUNT: usize = 3;
+
+pub const HAZARD_RADIUS: f32 = 60.0;
+pub const HAZARD_ROTATION_SPEED: f32 = 20.0;

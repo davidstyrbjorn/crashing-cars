@@ -55,17 +55,22 @@ MODIFICATIONS
 [x] Shots can be fired
 [x] JUICE: countdown on round start + on goal
 [x] MOD: Inverted
+[x] BUG: ball initial velocity weird
+[x] MOD: AddHazard (graphics?)
+[x] JUICE: camrea shake on turret shot
+
+[] JUICE: camera shake on ball hit
 
 [] Turret: Make projectiles destroy on wall hit
+[] Turret: Both players should get it
 
-[] MOD: ModifyCar
+[] MOD: ModifyCar (how?)
 
-[] MOD: AddHazard
+[] GRAPHICS: Hazard
+[] GRAPHICS: Projectile
 
-[] BUG: ball initial velocity weird
-[] TWEAK: sensor colliders for oob instead of manual checking
-[] JUICE: camera shake on ball hit
 [] JUICE: blinking props on goal
+[] TWEAK: sensor colliders for out-of-bounds instead of manual checking
 
 [x] GAME: Intro cutscene thingy
 

@@ -75,7 +75,7 @@ impl Modifications {
                 spawn_modify_field(commands, counter);
             }
             ModificationType::AddHazard { counter } => {
-                commands.spawn(AddHazard(counter));
+                spawn_hazard(commands);
             }
             ModificationType::ModifyCar { to, counter } => {
                 commands.entity(to).insert(ModifyCar(counter));

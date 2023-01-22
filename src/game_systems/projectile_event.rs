@@ -1,7 +1,6 @@
 use crate::prelude::*;
 
 pub fn projectile_event(
-    mut commands: Commands,
     mut event_reader: EventReader<ProjectileEvent>,
     mut query: Query<(&mut Health, Entity), With<Player>>,
 ) {
@@ -22,7 +21,9 @@ pub fn projectile_event_despawn(
     mut commands: Commands,
     mut event_reader: EventReader<ProjectileEvent>,
 ) {
-    for projectile_event in event_reader.iter() {
-        commands.entity(projectile_event.hit_who).despawn();
-    }
+    // for projectile_event in event_reader.iter() {
+    //     if let Some(projectile) = projectile_event.projectile {
+    //         commands.entity(projectile).despawn();
+    //     }
+    // }
 }

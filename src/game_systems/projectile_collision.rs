@@ -15,7 +15,8 @@ pub fn projectile_collision_player(
             if let Some(_) = rapier_context.contact_pair(*player, entity) {
                 event_writer.send(ProjectileEvent {
                     hit_who: *player,
-                    projectile: entity,
+                    damage: 1,
+                    projectile: Some(entity),
                 });
             }
         });

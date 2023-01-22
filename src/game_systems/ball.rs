@@ -16,13 +16,19 @@ fn ball_scored(position: Vec3) -> Option<Team> {
 
 // Checks if ball has scored if so push event
 pub fn ball_score(
-    mut query: Query<(&Transform), With<Ball>>,
+    mut query: Query<(&mut Transform, &mut Velocity), With<Ball>>,
     mut event_writer: EventWriter<GoalEvent>,
+    prepare_timer: Res<PrepareTimerResource>,
 ) {
     // Check if ball transform is valid goal position
-    if let Ok(transform) = query.get_single_mut() {
-        if let Some(team) = ball_scored(transform.translation) {
-            event_writer.send(GoalEvent { team });
+    if let Ok((mut transform, mut velocity)) = query.get_single_mut() {
+        if prepare_timer.0.finished() {
+            if let Some(team) = ball_scored(transform.translation) {
+                event_writer.send(GoalEvent { team });
+            }
+        } else {
+            velocity.linvel = Vec2::ZERO;
+            transform.translation = Vec3::ZERO;
         }
     }
 }

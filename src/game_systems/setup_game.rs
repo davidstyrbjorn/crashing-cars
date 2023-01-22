@@ -38,6 +38,9 @@ pub fn setup_game(
     spawn_ball(&mut commands, &mut meshes, &mut materials);
     spawn_level_box(&mut commands);
 
+    // spawn_hazard(&mut commands);
+    // spawn_modify_field(&mut commands, 0);
+
     // Spawn round timer text
     commands
         .spawn(

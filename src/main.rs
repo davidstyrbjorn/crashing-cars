@@ -10,8 +10,6 @@ mod spawner;
 use std::{collections::VecDeque, time::Duration};
 
 mod prelude {
-    use std::collections::VecDeque;
-
     pub use crate::components::*;
     pub use crate::constants::*;
     pub use crate::events::*;
@@ -20,6 +18,7 @@ mod prelude {
     pub use crate::modifications::*;
     pub use crate::plugins::*;
     pub use crate::spawner::*;
+    use std::collections::VecDeque;
     #[derive(Debug, Clone, Eq, PartialEq, Hash)]
     pub enum GameState {
         Intro,
@@ -42,6 +41,8 @@ mod prelude {
     pub struct ScoreCounter {
         pub score: (u8, u8),
     }
+    #[derive(Resource)]
+    pub struct CameraShakeResource(pub f32); // How long
     #[derive(Resource)]
     pub struct DraftResource {
         pub current_idx: usize,
@@ -79,9 +80,10 @@ fn main() {
             TimerMode::Once,
         )))
         .insert_resource(RoundTimerConfig {
-            timer: Timer::new(Duration::from_secs(5), TimerMode::Once),
+            timer: Timer::new(Duration::from_secs(20), TimerMode::Once),
         })
         .insert_resource(Modifications::load())
+        .insert_resource(CameraShakeResource(0.0))
         .insert_resource(DraftResource {
             current_idx: 0,
             modifications: Vec::new(),

@@ -29,7 +29,6 @@ pub fn spawn_ball(
                 angular_damping: 0.0,
             },
             Velocity::zero(),
-            // ColliderMassProperties::Mass(0.025),
         ))
         .id()
 }
@@ -52,7 +51,7 @@ pub fn spawn_player(
     color = Color::rgba(0.0, 0.0, 0.0, 0.0);
     commands
         .spawn((
-            // Turret,
+            Turret,
             Health(10),
             Player {
                 spawn_position,
@@ -101,12 +100,12 @@ pub fn spawn_player(
             },
             RigidBody::Dynamic,
             LockedAxes::ROTATION_LOCKED,
-            // Collider::cuboid(PLAYER_SIZE.x / 2.0, PLAYER_SIZE.y / 2.0),
-            Collider::triangle(
-                Vec2::new(0.0, 0.0),
-                Vec2::new(PLAYER_SIZE.x, 0.0),
-                Vec2::new(PLAYER_SIZE.x / 2.0, PLAYER_SIZE.y),
-            ),
+            Collider::cuboid(PLAYER_SIZE.x / 2.0, PLAYER_SIZE.y / 2.0),
+            // Collider::triangle(
+            //     Vec2::new(0.0, 0.0),
+            //     Vec2::new(PLAYER_SIZE.x, 0.0),
+            //     Vec2::new(PLAYER_SIZE.x / 2.0, PLAYER_SIZE.y),
+            // ),
             Restitution::coefficient(0.4),
             Damping {
                 linear_damping: 3.5,
@@ -239,4 +238,24 @@ pub fn spawn_projectile(commands: &mut Commands, origin: Vec3, rotation: Quat, t
         Collider::ball(6.0),
         RigidBody::Fixed,
     ));
+}
+
+pub fn spawn_hazard(commands: &mut Commands) {
+    let factor: f32 = 3.5;
+    let positions = vec![
+        Vec2::new(WINDOW_WIDTH / factor, WINDOW_HEIGHT / factor),
+        Vec2::new(-WINDOW_WIDTH / factor, WINDOW_HEIGHT / factor),
+        Vec2::new(-WINDOW_WIDTH / factor, -WINDOW_HEIGHT / factor),
+        Vec2::new(WINDOW_WIDTH / factor, -WINDOW_HEIGHT / factor),
+    ];
+
+    for position in positions.iter() {
+        let position = Vec3::new(position.x, position.y, 0.0);
+        commands.spawn((
+            Hazard,
+            TransformBundle::from_transform(Transform::from_translation(position)),
+            // Collider::ball(HAZARD_RADIUS),
+            Collider::cuboid(50.0, 50.0),
+        ));
+    }
 }

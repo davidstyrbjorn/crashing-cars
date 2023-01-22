@@ -92,9 +92,6 @@ pub struct Projectile {
 pub struct ModifyField(pub u32);
 
 #[derive(Component)]
-pub struct AddHazard(pub u32);
-
-#[derive(Component)]
 pub struct ModifyCar(pub u32);
 
 #[derive(Component)]
@@ -111,3 +108,6 @@ pub struct PrepareTimerText;
 
 #[derive(Component)]
 pub struct InvertedControls(pub u8);
+
+#[derive(Component)]
+pub struct Hazard;

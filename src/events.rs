@@ -13,7 +13,8 @@ pub struct ModificationDone;
 
 pub struct ProjectileEvent {
     pub hit_who: Entity,
-    pub projectile: Entity,
+    pub projectile: Option<Entity>,
+    pub damage: usize,
 }
 
 pub struct GoalEvent {
