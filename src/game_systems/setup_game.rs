@@ -35,7 +35,7 @@ pub fn setup_game(
     // Fill our lil array
     players.0 = vec![e1, e2];
 
-    spawn_ball(&mut commands, &mut meshes, &mut materials);
+    spawn_ball(&mut commands, &mut meshes, &mut materials, &asset_server);
     spawn_level_box(&mut commands);
 
     // spawn_hazard(&mut commands);

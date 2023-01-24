@@ -10,14 +10,17 @@ pub fn spawn_ball(
     commands: &mut Commands,
     meshes: &mut ResMut<Assets<Mesh>>,
     materials: &mut ResMut<Assets<ColorMaterial>>,
+    asset_server: &Res<AssetServer>,
 ) -> Entity {
     commands
         .spawn((
             Ball,
-            MaterialMesh2dBundle {
-                mesh: meshes.add(shape::Circle::new(BALL_RADIUS).into()).into(),
-                material: materials.add(ColorMaterial::from(Color::AQUAMARINE)),
-                transform: Transform::from_translation(Vec3::new(0.0, 0.0, 0.0)),
+            SpriteBundle {
+                texture: asset_server.load("blue.png"),
+                sprite: Sprite {
+                    custom_size: Some(Vec2::new(BALL_RADIUS * 2.0, BALL_RADIUS * 2.0)),
+                    ..default()
+                },
                 ..default()
             },
             RigidBody::Dynamic,
