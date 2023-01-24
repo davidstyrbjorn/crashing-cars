@@ -16,14 +16,3 @@ pub fn projectile_event(
         }
     }
 }
-
-pub fn projectile_event_despawn(
-    mut commands: Commands,
-    mut event_reader: EventReader<ProjectileEvent>,
-) {
-    // for projectile_event in event_reader.iter() {
-    //     if let Some(projectile) = projectile_event.projectile {
-    //         commands.entity(projectile).despawn();
-    //     }
-    // }
-}

@@ -35,7 +35,7 @@ impl Plugin for GamePlugin {
                 .with_system(new_round_score_counter)
                 .with_system(reset_base_system)
                 .with_system(projectile)
-                .with_system(projectile_event_despawn),
+                .with_system(boost),
         )
         .add_system_set(
             SystemSet::on_update(GameState::InGame)
@@ -47,6 +47,7 @@ impl Plugin for GamePlugin {
                 .with_system(modifier_linear_speed)
                 .with_system(turret)
                 .with_system(projectile_collision_player)
+                .with_system(projectile_collision_anything)
                 .with_system(health_reset_position)
                 .with_system(camera_shake),
         )
@@ -65,7 +66,9 @@ impl Plugin for GamePlugin {
                 .with_system(ball_scored_update_score)
                 .with_system(ball_scored_reset_ball)
                 .with_system(ball_scored_reset_prepare_timer)
-                .with_system(hazard),
+                .with_system(hazard)
+                .with_system(boost_pickup_spot)
+                .with_system(boost_pickup_spot_visual),
         )
         .add_system_set(
             SystemSet::on_enter(GameState::InGame)

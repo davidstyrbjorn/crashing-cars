@@ -1,3 +1,5 @@
+use std::time::Duration;
+
 use crate::prelude::*;
 use serde::Deserialize;
 
@@ -111,3 +113,24 @@ pub struct InvertedControls(pub u8);
 
 #[derive(Component)]
 pub struct Hazard;
+
+#[derive(Component)]
+pub struct Boost(pub Timer);
+
+#[derive(Component)]
+pub struct BoostPickupSpot {
+    pub timer: Timer,
+    pub has_boost: bool,
+}
+
+impl BoostPickupSpot {
+    pub fn new() -> Self {
+        Self {
+            timer: Timer::new(Duration::from_secs(4), TimerMode::Once),
+            has_boost: false,
+        }
+    }
+}
+
+#[derive(Component)]
+pub struct CharliesWildcard;

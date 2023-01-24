@@ -27,11 +27,19 @@ Modifications(
         ),
         Modification(
             title: "Torture Chamber",
-            description: "Add hazards to the stage"
+            description: "Add hazards to field"
         ),
         Modification(
-            title: "That MTV Show",
-            description: "Add a thingy to your car (BOTH PLAYERS)"
-        )
+            title: "Metamorphosis",
+            description: "Modify player (BOTH PLAYERS)"
+        ),
+        Modification(
+            title: "Juicin'",
+            description: "Add boost pickups to field"
+        ),
+        Modification(
+            title: "Charlie's Wildcard",
+            description: "Cut the brakes, wildcard bi**hes"
+        ),
     ]
 )

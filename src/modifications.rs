@@ -6,7 +6,7 @@ use std::fs::File;
 
 // Struct for storing modifications, load them from ron file and store in struct
 
-// Each modification to the game will be represented by a enum state
+// Each modification to the game will be represented by a enum state with some data
 #[derive(Clone, Deserialize, Debug, PartialEq)]
 pub enum ModificationType {
     GoalKeeper { team: Team },
@@ -17,6 +17,8 @@ pub enum ModificationType {
     ModifyField { counter: u32 },
     AddHazard { counter: u32 },
     ModifyCar { to: Entity, counter: u32 },
+    Boost,
+    CharliesWildcard,
 }
 
 // On modification pickup we can basically add a new component to the given entity
@@ -49,7 +51,12 @@ impl Modifications {
         self.modifications.remove(idx).clone()
     }
 
-    pub fn modification_picked(modification_type: ModificationType, commands: &mut Commands) {
+    pub fn modification_picked(
+        modification_type: ModificationType,
+        commands: &mut Commands,
+        asset_server: &AssetServer,
+        players: &Players,
+    ) {
         match modification_type {
             ModificationType::GoalKeeper { team } => spawn_goal_keeper(commands, team),
             ModificationType::IncreaseSpeed { to } => {
@@ -79,6 +86,15 @@ impl Modifications {
             }
             ModificationType::ModifyCar { to, counter } => {
                 commands.entity(to).insert(ModifyCar(counter));
+            }
+            ModificationType::Boost => {
+                spawn_boost_pickups(commands, asset_server);
+            }
+            ModificationType::CharliesWildcard => {
+                players.0.iter().for_each(|player| {
+                    println!("ADDING");
+                    commands.entity(*player).insert(CharliesWildcard);
+                });
             }
         }
     }

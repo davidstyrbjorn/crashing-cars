@@ -1,4 +1,5 @@
 mod ball;
+mod boost;
 mod camera;
 mod despawn_entities;
 mod draft_pick;
@@ -30,6 +31,7 @@ mod timer;
 mod turret;
 
 pub use ball::*;
+pub use boost::*;
 pub use camera::*;
 pub use despawn_entities::despawn_entities;
 pub use draft_pick::draft_pick;
@@ -46,7 +48,7 @@ pub use on_round_end::on_round_end;
 pub use player_move::player_move;
 pub use press_to_start_game::press_to_start_game;
 pub use projectile::*;
-pub use projectile_collision::projectile_collision_player;
+pub use projectile_collision::*;
 pub use projectile_event::*;
 pub use reset_base_system::reset_base_system;
 pub use run_intro::run_intro;

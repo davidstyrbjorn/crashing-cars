@@ -3,43 +3,55 @@ use crate::prelude::*;
 pub fn setup_game(
     mut commands: Commands,
     asset_server: Res<AssetServer>,
-    mut meshes: ResMut<Assets<Mesh>>,
     mut startup_flags: ResMut<StartupFlags>,
     mut players: ResMut<Players>,
-    mut materials: ResMut<Assets<ColorMaterial>>,
 ) {
     if startup_flags.in_game {
         return;
     }
     startup_flags.in_game = true;
 
+    let animal_textures = vec![
+        "chick.png",
+        "duck.png",
+        "frog.png",
+        "owl.png",
+        "parrot.png",
+        "sloth.png",
+    ];
+
     let e1 = spawn_player(
         &mut commands,
+        &asset_server,
         (KeyCode::A, KeyCode::D),
         (KeyCode::W, KeyCode::S),
         KeyCode::Space,
         KeyCode::E,
         Vec3::new(-WINDOW_WIDTH / 4.0, 0.0, 0.0),
         Team::Red,
+        animal_textures[0],
     );
     let e2 = spawn_player(
         &mut commands,
+        &asset_server,
         (KeyCode::Left, KeyCode::Right),
         (KeyCode::Up, KeyCode::Down),
         KeyCode::Space,
         KeyCode::RShift,
         Vec3::new(WINDOW_WIDTH / 4.0, 0.0, 0.0),
         Team::Blue,
+        animal_textures[1],
     );
 
     // Fill our lil array
     players.0 = vec![e1, e2];
 
-    spawn_ball(&mut commands, &mut meshes, &mut materials, &asset_server);
+    spawn_ball(&mut commands, &asset_server);
     spawn_level_box(&mut commands);
 
     // spawn_hazard(&mut commands);
-    // spawn_modify_field(&mut commands, 0);
+    //spawn_modify_field(&mut commands, 0);
+    // spawn_boost_pickups(&mut commands, &asset_server);
 
     // Spawn round timer text
     commands

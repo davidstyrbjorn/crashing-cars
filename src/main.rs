@@ -80,7 +80,7 @@ fn main() {
             TimerMode::Once,
         )))
         .insert_resource(RoundTimerConfig {
-            timer: Timer::new(Duration::from_secs(20), TimerMode::Once),
+            timer: Timer::new(Duration::from_secs(5), TimerMode::Once),
         })
         .insert_resource(Modifications::load())
         .insert_resource(CameraShakeResource(0.0))

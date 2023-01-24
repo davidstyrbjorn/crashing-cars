@@ -7,6 +7,7 @@ pub fn draft_pick(
     mut modification_events: EventWriter<ModificationDone>,
     mut app_state: ResMut<State<GameState>>,
     mut modifications: ResMut<Modifications>,
+    asset_server: Res<AssetServer>,
     mut commands: Commands,
     players: Res<Players>,
 ) {
@@ -36,12 +37,19 @@ pub fn draft_pick(
                 to: draft_pick.who,
                 counter: 0,
             }),
+            "Juicin'" => Some(ModificationType::Boost),
+            "Charlie's Wildcard" => Some(ModificationType::CharliesWildcard),
             _ => None,
         };
 
         // Apply modification to game
         if let Some(modification_type) = modification_type {
-            Modifications::modification_picked(modification_type, &mut commands);
+            Modifications::modification_picked(
+                modification_type,
+                &mut commands,
+                &asset_server,
+                &players,
+            );
         } else {
             panic!("RUNNING A MODIFICATION WITH NO DATA...");
         }

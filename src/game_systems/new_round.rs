@@ -38,10 +38,12 @@ pub fn new_round_ball(
 pub fn new_round_timer(
     mut events: EventReader<ModificationDone>,
     mut round_timer: ResMut<RoundTimerConfig>,
+    mut prepare_round_timer: ResMut<PrepareTimerResource>,
 ) {
     // Reset round timer
     for _ in events.iter() {
         round_timer.timer.reset();
+        prepare_round_timer.0.reset();
     }
 }
 

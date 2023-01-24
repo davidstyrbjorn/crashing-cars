@@ -24,10 +24,27 @@ Modifications:
 -   Increase Speed (Furiously Fast)
 -   Decrase Degrade Factor (Snappy Hamster)
 -   Shootable Projectiles (Lock n' Load)
--   Give the other player inverted controls (Mind Fuck)
 -   Modify Field - Stages, each stage adds new obstacles (Mutated Grounds)
 -   Add hazards to the stage (Torture Chamber)
 -   Add a thingy to your car (Pimp My Ride)
+-   Add speed-boosts that temporary boost movement (Gotta go fast)
+-   Movement forward is always pressed (Charlie's Wildcard)
+
+-   Give the other player inverted controls (Mind Fuck) (KILLED FOR NOW MIGHT MOVE TO NEGATIVE EFFECTS)
+
+Sepration of Modifications (draft)
+
+-   Modifications that affect gameplay in a neutral / positive way
+    should perhaps be seperated away from negative modifications
+
+-   Maybe negative modifications (e.g. mind fuck) could appear as random injections into the game
+    splash-effect
+
+-   For this we'd need more negative effects, right now only mind fuck could work
+    Other ideas:
+-   Switch goals (goals switch place but players stay on the same side)
+-   Crazy hazards (Hazard objects move around in random fashion)
+-   Shuffle controls (shuffle the 5 keys, move / turret)
 
 TODO:
 [x] CODE: systems into seperate files
@@ -46,7 +63,6 @@ TODO:
 MODIFICATIONS
 [x] MOD: GoalKeeper
 [x] MOD: IncreaseSpeed
-[ish] MOD: DecreaseDegrade (needs some more polish)
 
 [x] MOD: ModifyField
 [x] MOD: Turret
@@ -58,16 +74,27 @@ MODIFICATIONS
 [x] BUG: ball initial velocity weird
 [x] MOD: AddHazard (graphics?)
 [x] JUICE: camrea shake on turret shot
+[x] Turret: Make projectiles destroy on wall hit
+[x] MOD: Speed-boosters
+[x] MDD: Charlie's wildcard
 
+[ish] MOD: DecreaseDegrade (needs some more polish)
+[] JUICE: boost effect
 [] JUICE: camera shake on ball hit
 
-[] Turret: Make projectiles destroy on wall hit
 [] Turret: Both players should get it
+[] Projectile: Projectile on projectile should not be a thing
 
-[] MOD: ModifyCar (how?)
+[] COLLIDER: Create segmented collider for modified player
+
+[] MOD: ModifyCar (segmented collider & new sprite)
 
 [] GRAPHICS: Hazard
 [] GRAPHICS: Projectile
+[] GRAPHICS: Level
+[] GRAPHICS: player (a random animal)
+
+[] GAME: Pause functionality
 
 [] JUICE: blinking props on goal
 [] TWEAK: sensor colliders for out-of-bounds instead of manual checking

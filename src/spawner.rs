@@ -1,17 +1,12 @@
-use std::f32::consts::PI;
+use std::{f32::consts::PI, time::Duration};
 
-use bevy::sprite::MaterialMesh2dBundle;
+use bevy::{asset::AssetPath, sprite::MaterialMesh2dBundle};
 use bevy_rapier2d::rapier::prelude::{ColliderBuilder, ColliderFlags};
 use leafwing_input_manager::user_input::InputKind;
 
 use crate::prelude::*;
 
-pub fn spawn_ball(
-    commands: &mut Commands,
-    meshes: &mut ResMut<Assets<Mesh>>,
-    materials: &mut ResMut<Assets<ColorMaterial>>,
-    asset_server: &Res<AssetServer>,
-) -> Entity {
+pub fn spawn_ball(commands: &mut Commands, asset_server: &Res<AssetServer>) -> Entity {
     commands
         .spawn((
             Ball,
@@ -27,6 +22,7 @@ pub fn spawn_ball(
             LockedAxes::ROTATION_LOCKED,
             Collider::ball(BALL_RADIUS),
             Restitution::coefficient(0.5),
+            ColliderMassProperties::Mass(0.025),
             Damping {
                 linear_damping: 0.4,
                 angular_damping: 0.0,
@@ -38,20 +34,19 @@ pub fn spawn_ball(
 
 pub fn spawn_player(
     commands: &mut Commands,
+    asset_server: &Res<AssetServer>,
     left_right: (KeyCode, KeyCode),
     up_down: (KeyCode, KeyCode),
     select: KeyCode,
     turret: KeyCode,
     spawn_position: Vec3,
     team: Team,
+    texture_name: &str,
 ) -> Entity {
     let mut rotation_z = PI / 2.0;
-    let mut color = Color::BLUE;
     if team == Team::Red {
         rotation_z = -PI / 2.0;
-        color = Color::RED;
     }
-    color = Color::rgba(0.0, 0.0, 0.0, 0.0);
     commands
         .spawn((
             Turret,
@@ -64,9 +59,9 @@ pub fn spawn_player(
             },
             BaseStats::new(),
             SpriteBundle {
+                texture: asset_server.load(texture_name),
                 sprite: Sprite {
                     custom_size: Some(Vec2::new(PLAYER_SIZE.x, PLAYER_SIZE.y)),
-                    color,
                     ..Default::default()
                 },
                 transform: Transform {
@@ -125,7 +120,7 @@ pub fn spawn_player(
 
 pub fn spawn_level_box(commands: &mut Commands) {
     const WIDTH: f32 = 10.0;
-    const OPENING: f32 = (BALL_RADIUS * 2.0) * 8.0;
+    const OPENING: f32 = 250.0;
 
     // Spawn walls around the level
     // left-top
@@ -244,7 +239,7 @@ pub fn spawn_projectile(commands: &mut Commands, origin: Vec3, rotation: Quat, t
 }
 
 pub fn spawn_hazard(commands: &mut Commands) {
-    let factor: f32 = 3.5;
+    let factor = 3.5;
     let positions = vec![
         Vec2::new(WINDOW_WIDTH / factor, WINDOW_HEIGHT / factor),
         Vec2::new(-WINDOW_WIDTH / factor, WINDOW_HEIGHT / factor),
@@ -257,8 +252,32 @@ pub fn spawn_hazard(commands: &mut Commands) {
         commands.spawn((
             Hazard,
             TransformBundle::from_transform(Transform::from_translation(position)),
-            // Collider::ball(HAZARD_RADIUS),
             Collider::cuboid(50.0, 50.0),
         ));
     }
+}
+
+pub fn spawn_boost_pickups(commands: &mut Commands, asset_server: &AssetServer) {
+    let factor = 3.5;
+    let positions = vec![
+        Vec3::new(0.0, WINDOW_HEIGHT / factor, 0.0),
+        Vec3::new(0.0, -WINDOW_HEIGHT / factor, 0.0),
+    ];
+
+    positions.iter().for_each(|position| {
+        commands.spawn((
+            BoostPickupSpot::new(),
+            SpriteBundle {
+                texture: asset_server.load("boost.png"),
+                sprite: Sprite {
+                    custom_size: Some(Vec2::ONE * BOOST_SIZE),
+                    ..default()
+                },
+                transform: Transform::from_translation(*position),
+                ..default()
+            },
+            Collider::cuboid(30.0, 30.0),
+            Sensor,
+        ));
+    });
 }

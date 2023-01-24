@@ -22,3 +22,21 @@ pub fn projectile_collision_player(
         });
     }
 }
+
+pub fn projectile_collision_anything(
+    rapier_context: Res<RapierContext>,
+    query: Query<Entity, With<Projectile>>,
+    mut commands: Commands,
+) {
+    for entity in query.iter() {
+        let collision = rapier_context
+            .contact_pairs()
+            .filter(|p| p.collider1() == entity || p.collider2() == entity)
+            .count()
+            > 0;
+        if collision {
+            // [] Projectile: Projectile on projectile should not be a thing
+            // commands.entity(entity).despawn();
+        }
+    }
+}
