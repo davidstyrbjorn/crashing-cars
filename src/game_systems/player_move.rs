@@ -51,12 +51,9 @@ pub fn player_move(
             } else {
                 velocity.angvel = velocity.angvel * base_stat.angular_degrade;
             }
-            if input.pressed(Action::Move) || charlies_wildcard {
+            if input.pressed(Action::Move) {
                 let axis_pair = input.axis_pair(Action::Move).unwrap();
-                let mut axis_pair = axis_pair.y();
-                if charlies_wildcard {
-                    axis_pair = 1.0;
-                }
+                let axis_pair = axis_pair.y();
                 let movement_direction = transform.rotation * Vec3::Y;
                 let mut x =
                     movement_direction * axis_pair * time.delta_seconds() * base_stat.linear_speed;
@@ -65,7 +62,11 @@ pub fn player_move(
                 }
                 velocity.linvel += Vec2::new(x.x, x.y);
             } else {
-                velocity.linvel = velocity.linvel * 0.9;
+                if charlies_wildcard {
+                    velocity.linvel = velocity.linvel;
+                } else {
+                    velocity.linvel = velocity.linvel * 0.9;
+                }
             }
 
             if player_outside(transform.translation) {

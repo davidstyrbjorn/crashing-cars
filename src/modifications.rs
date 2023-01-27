@@ -67,7 +67,7 @@ impl Modifications {
                 commands.entity(to).insert(AngularDegradeModifier(0.5));
             }
             ModificationType::Turret { to } => {
-                commands.entity(to).insert(Turret);
+                commands.entity(to).insert(Turret(TURRET_SHOTS_PER_ROUND));
             }
             ModificationType::Inverted {
                 to,

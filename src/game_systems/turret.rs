@@ -6,12 +6,21 @@ pub fn turret(
     time: Res<Time>,
     mut commands: Commands,
     prepare_timer: Res<PrepareTimerResource>,
-    mut query: Query<(&ActionState<Action>, &Transform, &mut ExternalImpulse), With<Turret>>,
+    mut query: Query<(
+        &ActionState<Action>,
+        &Transform,
+        &mut ExternalImpulse,
+        &mut Turret,
+    )>,
     mut camera_shake_resource: ResMut<CameraShakeResource>,
 ) {
     if prepare_timer.0.finished() {
-        for (input, transform, mut external_force) in query.iter_mut() {
+        for (input, transform, mut external_force, mut turret) in query.iter_mut() {
             if input.just_pressed(Action::Turret) {
+                if turret.0 <= 0 {
+                    continue;
+                }
+                turret.0 -= 1;
                 camera_shake_resource.0 = 0.2;
                 let how_many = 6.0;
                 let angle = PI / 8.0;

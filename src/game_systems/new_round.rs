@@ -56,3 +56,11 @@ pub fn new_round_score_counter(
         score_counter.score = (0, 0);
     }
 }
+
+pub fn new_round_turret(mut events: EventReader<ModificationDone>, mut query: Query<&mut Turret>) {
+    for _ in events.iter() {
+        for mut turret in query.iter_mut() {
+            turret.0 = 3;
+        }
+    }
+}

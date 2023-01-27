@@ -78,6 +78,9 @@ MODIFICATIONS
 [x] MOD: Speed-boosters
 [x] MDD: Charlie's wildcard
 
+[] GAME: On death countdown before can go again
+[] TURRET: Only 3 shots per round
+
 [ish] MOD: DecreaseDegrade (needs some more polish)
 [] JUICE: boost effect
 [] JUICE: camera shake on ball hit
@@ -88,6 +91,9 @@ MODIFICATIONS
 [] COLLIDER: Create segmented collider for modified player
 
 [] MOD: ModifyCar (segmented collider & new sprite)
+
+[] PLAYER: Movement 2 hard
+[] PLAYER: Turn rate 2 fast
 
 [] GRAPHICS: Hazard
 [] GRAPHICS: Projectile

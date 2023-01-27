@@ -33,6 +33,7 @@ impl Plugin for GamePlugin {
                 .with_system(new_round_ball)
                 .with_system(new_round_timer)
                 .with_system(new_round_score_counter)
+                .with_system(new_round_turret)
                 .with_system(reset_base_system)
                 .with_system(projectile)
                 .with_system(boost),

@@ -14,6 +14,7 @@ pub const ANGULAR_DEGRADE: f32 = 0.3;
 pub const TERMINAL_FORCE: f32 = 20.0;
 pub const BALL_RADIUS: f32 = 30.0;
 
+pub const TURRET_SHOTS_PER_ROUND: usize = 3;
 pub const PROJECTILE_SPEED: f32 = 2000.0;
 pub const PROJECTILE_LIFE_LENGTH: u128 = 2000;
 pub const PROJECTILE_KNOCKBACK: f32 = 25.0;

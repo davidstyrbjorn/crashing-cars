@@ -69,7 +69,7 @@ pub use prelude::*;
 fn main() {
     let mut app = App::new();
 
-    app.add_state(GameState::InGame)
+    app.add_state(GameState::Intro)
         .insert_resource(ClearColor(Color::DARK_GRAY))
         .insert_resource(RapierConfiguration {
             gravity: Vec2::ZERO,
@@ -80,7 +80,7 @@ fn main() {
             TimerMode::Once,
         )))
         .insert_resource(RoundTimerConfig {
-            timer: Timer::new(Duration::from_secs(5), TimerMode::Once),
+            timer: Timer::new(Duration::from_secs(40), TimerMode::Once),
         })
         .insert_resource(Modifications::load())
         .insert_resource(CameraShakeResource(0.0))

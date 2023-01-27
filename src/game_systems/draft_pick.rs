@@ -33,7 +33,7 @@ pub fn draft_pick(
             // TODO: Counter should be some good value
             "Mutated Grounds" => Some(ModificationType::ModifyField { counter: 0 }),
             "Torture Chamber" => Some(ModificationType::AddHazard { counter: 0 }),
-            "That MTV Show" => Some(ModificationType::ModifyCar {
+            "Metamorphosis" => Some(ModificationType::ModifyCar {
                 to: draft_pick.who,
                 counter: 0,
             }),

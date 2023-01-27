@@ -15,6 +15,7 @@ pub struct Player {
     pub spawn_rotation: f32,
     pub score: u8,
     pub team: Team,
+    pub lock_timer: Timer,
 }
 
 #[derive(Component)]
@@ -82,7 +83,7 @@ pub struct ModificationElement {
 pub struct CurrentlyPicking;
 
 #[derive(Component)]
-pub struct Turret;
+pub struct Turret(pub usize);
 
 #[derive(Component)]
 pub struct Projectile {

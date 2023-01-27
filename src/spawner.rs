@@ -49,13 +49,14 @@ pub fn spawn_player(
     }
     commands
         .spawn((
-            Turret,
+            Turret(3),
             Health(10),
             Player {
                 spawn_position,
                 score: 0,
                 team,
                 spawn_rotation: rotation_z,
+                lock_timer: Timer::new(Duration::from_secs(3), TimerMode::Once),
             },
             BaseStats::new(),
             SpriteBundle {
